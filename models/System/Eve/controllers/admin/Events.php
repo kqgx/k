@@ -24,7 +24,6 @@ class Events extends M_Controller
             L('事件') => array('admin/events/index', 'rocket'),
             L('添加') => array('admin/events/add_js', 'plus'),
         )));
-
     }
 
     /** 管理页 index **/
