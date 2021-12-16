@@ -12,7 +12,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 return array(
 
-	'kqgx'                          => 1,
+	'k'                             => 1,
 	''                              => 1,
 
 );

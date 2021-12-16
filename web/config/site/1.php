@@ -42,7 +42,7 @@ return array(
 	'SITE_IMAGE_COLOR'              => '', //
 	'SITE_IMAGE_SIZE'               => '', //
 	'SITE_IMAGE_TEXT'               => '', //
-	'SITE_DOMAIN'                   => 'kqgx', //网站的域名
+	'SITE_DOMAIN'                   => 'k', //网站的域名
 	'SITE_NAVIGATOR'                => '首页轮播,,,,,,,,,', //网站导航信息，多个导航逗号分开
 	'SITE_IMAGE_CONTENT'            => 0, //是否内容编辑器显示水印图片
 

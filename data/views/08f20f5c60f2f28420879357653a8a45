@@ -1,0 +1,100 @@
+<?php if ($fn_include = $this->_include("nheader.html")) include($fn_include); ?>
+<script type="text/javascript">
+	function check(body) {
+		var throughBox = art.dialog.through;
+		throughBox({
+			content: body ? body: '暂无任信息',
+			title: "<?php echo L('查看事件函数体'); ?>"
+		});
+	}
+	function dr_get_code(func) {
+		var body = '<div style="padding:20px;font-size:14px">';
+		body += "$this->hooks->call_hook('"+func+"', $data);";
+		body+= '</div>';
+		var throughBox = art.dialog.through;
+		throughBox({
+			content: body,
+			title: "<?php echo L('调用方式'); ?>"
+		});
+	}
+</script>
+<div class="page-bar">
+	<ul class="page-breadcrumb mylink">
+		<?php echo $menu['link']; ?>
+
+	</ul>
+	<ul class="page-breadcrumb myname">
+		<?php echo $menu['name']; ?>
+	</ul>
+	<div class="page-toolbar">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-hover="dropdown"> <?php echo L('操作菜单'); ?>
+				<i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				<?php if (is_array($menu['quick'])) { $count=count($menu['quick']);foreach ($menu['quick'] as $t) { ?>
+				<li>
+					<a href="<?php echo $t['url']; ?>"><?php echo $t['icon'];  echo $t['name']; ?></a>
+				</li>
+				<?php } } ?>
+				<li class="divider"> </li>
+				<li>
+					<a href="javascript:window.location.reload();">
+						<i class="icon-refresh"></i> <?php echo L('刷新页面'); ?></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<h3 class="page-title">
+	<small><?php echo L('事件须更新缓存即可使用'); ?></small>
+</h3>
+
+<form action="" method="post" name="myform" id="myform">
+	<div class="portlet mylistbody">
+		<div class="portlet-body">
+			<div class="table-scrollable">
+
+				<table class="mytable table table-striped table-bordered table-hover table-checkable dataTable">
+
+		<thead>
+		<tr>
+			<th width="20" align="right"></th>
+            <th><?php echo L('事件名称'); ?></th>
+            <th><?php echo L('事件类名称'); ?></th>
+			<th><?php echo L('事件方法'); ?></th>
+			<th><?php echo L('事件文件名称'); ?></th>
+			<th><?php echo L('事件模型类文件'); ?></th>
+			<th><?php echo L('结果'); ?></th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php if (is_array($list)) { $count=count($list);foreach ($list as $t) { ?>
+		<tr title = <?php echo $t['descript']; ?>>
+			<td align="right"><input name="ids[]" type="checkbox" class="dr_select toggle md-check" value="<?php echo $t['id']; ?>" /></td>
+            <td><?php echo $t['name']; ?></td>
+            <td><?php echo $t['class']; ?></td>
+            <td><?php echo $t['func']; ?></td>
+            <td><?php echo $t['filename']; ?>.php【web/hooks/<?php echo $t['filename']; ?>.php】</td>
+            <td><?php echo $t['hooksname']; ?>_hooks.php【web/config/eve/<?php echo $t['hooksname']; ?>_hooks.php】</td>
+			<td class="dr_option">
+				<a class="aedit" href="<?php echo dr_dialog_url(dr_url('events/edit',array('id'=>$t['id'])), 'edit'); ?>">修改</a>
+				<a class="alist" href="javascript:;" onclick="check('<?php echo $t['action']; ?>')"><?php echo L('查看'); ?></a>
+				<a class="alist" href="javascript:;" onclick="dr_get_code('<?php echo $t['func']; ?>')"><?php echo L('调用方式'); ?></a>
+			</td>
+		</tr>
+		<?php } } ?>
+		<tr class="mtable_bottom">
+			<th width="20" align="right" ><input name="dr_select" class="toggle md-check" id="dr_select" type="checkbox" onClick="dr_selected()" /></th>
+			<td colspan="7" >
+			<?php if ($this->ci->is_auth('admineventsdel')) { ?><button type="button" class="btn red btn-sm" name="option" onClick="dr_confirm_set_all('<?php echo L('您确定要这样操作吗？'); ?>')"><i class="fa fa-trash"></i> <?php echo L('删除'); ?></button><?php } ?>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+		</div>
+	</div>
+</div>
+</form>
+<div id="pages"><a><?php echo L('共%s条', $total); ?></a><?php echo $pages; ?></div>
+<?php if ($fn_include = $this->_include("nfooter.html")) include($fn_include); ?>
