@@ -1,0 +1,94 @@
+{template nheader.html}
+<div class="page-bar">
+    <ul class="page-breadcrumb mylink">
+        {$menu.link}
+    </ul>
+    <ul class="page-breadcrumb myname">
+        {$menu.name}
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-hover="dropdown"> {L('操作菜单')}
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                {loop $menu.quick $t}
+                <li>
+                    <a href="{$t.url}">{$t.icon} {$t.name}</a>
+                </li>
+                {/loop}
+                <li class="divider"> </li>
+                <li>
+                    <a href="javascript:window.location.reload();">
+                        <i class="icon-refresh"></i> {L('刷新页面')}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<h3 class="page-title">
+    <small>{L('记录银行转账凭证')}</small>
+</h3>
+<form action="" class="form-horizontal" method="post" name="myform" id="myform">
+    <div class="portlet light bordered" style="margin-top:30px;margin-bottom: 70px;">
+        <div class="portlet-title">
+            <div class="caption">
+                <span class="caption-subject font-green sbold uppercase">{L('录入/查看转账')}</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <table width="100%" class="table_form">
+                <tbody>
+                <tr>
+                    <th width="200">{L('订单号')}：</th>
+                    <td>{$order.sn}</td>
+                </tr>
+                <tr>
+                    <th><font color="red">*</font>&nbsp;{L('银行名称')}：</th>
+                    <td>
+                        <input class="input-text" type="text" name="data[bank_name]" value="{$data[bank_name]}" style="width:300px;">
+                    </td>
+                </tr>
+                <tr>
+                    <th><font color="red">*</font>&nbsp;{L('银行卡号')}：</th>
+                    <td>
+                        <input class="input-text" type="text" name="data[bank_sn]" value="{$data[bank_sn]}" style="width:50%;">
+                    </td>
+                </tr>
+                <tr>
+                    <th><font color="red">*</font>&nbsp;{L('备注说明')}：</th>
+                    <td>
+                        <textarea name="data[note]" style="width:80%; height:200px;margin-top:10px;">{$data[note]}</textarea>
+                    </td>
+                </tr>
+                <tr class="dr_border_none">
+                    <th><font color="red">*</font>&nbsp;{L('转账凭证图片')}：</th>
+                    <td>
+                        {dr_field_input('bank_note', 'File', $field['bank_note']['setting'], $data['bank_note'])}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="myfooter">
+        <div class="row">
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                {if !$data}
+                                <button type="submit" class="btn blue"> <i class="fa fa-rmb"></i> {L('确认到账并付款')}</button>
+                                {else}
+                                <button type="submit" class="btn green"> <i class="fa fa-save"></i> {L('保存')}</button>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{template nfooter.html}

@@ -1,0 +1,174 @@
+{php $page = $_GET['page'];}
+<div class="portlet light bordered" id="vue_div">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-share-alt font-green" style="font-size: 19px;"></i>
+            <span class="caption-subject font-green sbold ">{L('分销数据')}</span>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="form-body">
+            <table class="table mtable table-nomargin table-bordered table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th style="text-align:center;">{L('全部完成(单)')}</th>
+                    <th style="text-align:center;">{L('本月完成(单)')}</th>
+                    <th style="text-align:center">{L('今日完成(单)')}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center">{$count_data.all_over}</td>
+                        <td style="text-align:center">{$count_data.month_over}</td>
+                        <td style="text-align:center">{$count_data.today_over}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="form-body">
+    <div class="portlet light bordered myfbody">
+        <div class="portlet-title tabbable-line">
+            <ul class="nav nav-tabs" style="float:left;">
+                <li class="{$_GET['tab'] == 0 ? 'active' : ''}">
+                    <a href="#tab_0" data-toggle="tab"> <i class="fa fa-home"></i> {L('全部')} </a>
+                </li>
+                <li class="{$_GET['tab'] == 1 ? 'active' : ''}">
+                    <a href="#tab_1" data-toggle="tab"> <i class="fa fa-yen"></i> {L('待付款')} </a>
+                </li>
+                <li class="{$_GET['tab'] == 2 ? 'active' : ''}">
+                    <a href="#tab_2" data-toggle="tab"> <i class="fa fa-clock-o"></i> {L('待完成')} </a>
+                </li>
+                <li class="{$_GET['tab'] == 3 ? 'active' : ''}">
+                    <a href="#tab_3" data-toggle="tab"> <i class="fa fa-check-circle-o"></i> {L('已完成')} </a>
+                </li>
+            </ul>
+        </div>
+        <div class="portlet-body">
+            <div class="tab-content">
+                <div class="tab-pane {$_GET['tab'] == 0 ? 'active' : ''}" id="tab_0">
+                    <table class="table dr_table">
+                        <thead>
+                        <tr>
+                            <th width="15%">{L('订单号')}</th>
+                            <th width="15%">{L('买家')}</th>
+                            <th width="15%">{L('商家')}</th>
+                            <th width="15%">{L('价格')}</th>
+                            <th width="15%">{L('下单时间')}</th>
+                            <th>{L('状态')}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {php ($_GET['tab'] == 0) ? ($_GET['page'] = $page) : ($_GET['page'] = 1);}
+                        {list action=table table=1_order buy_uid=$_GET['uid'] order=order_time page=1 pagesize=5 urlrule=admin.php?c=member&m=distributor&uid=$_GET['uid']&action=$_GET['action']&tab=0&page=[page]}
+                        <tr>
+                            <td><a href="{dr_url('order/home/info', array('id'=>$t.id))}">{$t.sn}</a></td>
+                            <td><a href="javascript:;" onclick="dr_dialog_member('{$t.buy_uid}')">{dr_strcut($t.buy_username, 10)}</a></td>
+                            <td><a href="javascript:;" onclick="dr_dialog_member('{$t.sell_uid}')">{dr_strcut($t.sell_username, 10)}</a></td>
+                            <td>{if $t.order_score}{intval($t.order_price)}{SITE_SCORE}{else}¥{number_format($t.order_price, 2)}{/if}</td>
+                            <td>{dr_date($t.order_time, '', 'red')}</td>
+                            <td>{order_status($t)}</td>
+                        </tr>
+                        {/list}
+                        </tbody>
+                        <tr>
+                            <td colspan="6"><div id="pages"><a href="javascript:void(0);">{L('共%s条', $total)}</a>{$pages}</div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-pane {$_GET['tab'] == 1 ? 'active' : ''}" id="tab_1">
+                    <table class="table dr_table">
+                        <thead>
+                        <tr>
+                            <th width="15%">{L('订单号')}</th>
+                            <th width="15%">{L('买家')}</th>
+                            <th width="15%">{L('商家')}</th>
+                            <th width="15%">{L('价格')}</th>
+                            <th width="15%">{L('下单时间')}</th>
+                            <th>{L('状态')}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {php ($_GET['tab'] == 1) ? ($_GET['page'] = $page) : ($_GET['page'] = 1);}
+                        {list action=table table=1_order buy_uid=$_GET['uid'] pay_status=0 order_status=1 order=order_time page=1 pagesize=5 urlrule=admin.php?c=member&m=distributor&uid=$_GET['uid']&action=$_GET['action']&tab=1&page=[page]}
+                        <tr>
+                            <td><a href="{dr_url('order/home/info', array('id'=>$t.id))}">{$t.sn}</a></td>
+                            <td><a href="javascript:;" onclick="dr_dialog_member('{$t.buy_uid}')">{dr_strcut($t.buy_username, 10)}</a></td>
+                            <td><a href="javascript:;" onclick="dr_dialog_member('{$t.sell_uid}')">{dr_strcut($t.sell_username, 10)}</a></td>
+                            <td>{if $t.order_score}{intval($t.order_price)}{SITE_SCORE}{else}¥{number_format($t.order_price, 2)}{/if}</td>
+                            <td>{dr_date($t.order_time, '', 'red')}</td>
+                            <td>{order_status($t)}</td>
+                        </tr>
+                        {/list}
+                        </tbody>
+                        <tr>
+                            <td colspan="6"><div id="pages"><a href="javascript:void(0);">{L('共%s条', $total)}</a>{$pages}</div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-pane {$_GET['tab'] == 2 ? 'active' : ''}" id="tab_2">
+                    <table class="table dr_table">
+                        <thead>
+                        <tr>
+                            <th width="15%">{L('订单号')}</th>
+                            <th width="15%">{L('买家')}</th>
+                            <th width="15%">{L('商家')}</th>
+                            <th width="15%">{L('价格')}</th>
+                            <th width="15%">{L('下单时间')}</th>
+                            <th>{L('状态')}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {php ($_GET['tab'] == 2) ? ($_GET['page'] = $page) : ($_GET['page'] = 1);}
+                        {list action=table table=1_order buy_uid=$_GET['uid'] pay_status=3 order_status=1 order=order_time page=1 pagesize=5 urlrule=admin.php?c=member&m=distributor&uid=$_GET['uid']&action=$_GET['action']&tab=2&page=[page]}
+                        <tr>
+                            <td><a href="{dr_url('order/home/info', array('id'=>$t.id))}">{$t.sn}</a></td>
+                            <td><a href="javascript:;" onclick="dr_dialog_member('{$t.buy_uid}')">{dr_strcut($t.buy_username, 10)}</a></td>
+                            <td><a href="javascript:;" onclick="dr_dialog_member('{$t.sell_uid}')">{dr_strcut($t.sell_username, 10)}</a></td>
+                            <td>{if $t.order_score}{intval($t.order_price)}{SITE_SCORE}{else}¥{number_format($t.order_price, 2)}{/if}</td>
+                            <td>{dr_date($t.order_time, '', 'red')}</td>
+                            <td>{order_status($t)}</td>
+                        </tr>
+                        {/list}
+                        </tbody>
+                        <tr>
+                            <td colspan="6"><div id="pages"><a href="javascript:void(0);">{L('共%s条', $total)}</a>{$pages}</div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-pane {$_GET['tab'] == 3 ? 'active' : ''}" id="tab_3">
+                    <table class="table dr_table">
+                        <thead>
+                        <tr>
+                            <th width="15%">{L('订单号')}</th>
+                            <th width="15%">{L('买家')}</th>
+                            <th width="15%">{L('商家')}</th>
+                            <th width="15%">{L('价格')}</th>
+                            <th width="15%">{L('下单时间')}</th>
+                            <th>{L('状态')}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {php ($_GET['tab'] == 3) ? ($_GET['page'] = $page) : ($_GET['page'] = 1);}
+                        {list action=table table=1_order buy_uid=$_GET['uid'] order_status=3 order=order_time page=1 pagesize=5 urlrule=admin.php?c=member&m=distributor&uid=$_GET['uid']&action=$_GET['action']&tab=3&page=[page]}
+                        <tr>
+                            <td><a href="{dr_url('order/home/info', array('id'=>$t.id))}">{$t.sn}</a></td>
+                            <td><a href="javascript:;" onclick="dr_dialog_member('{$t.buy_uid}')">{dr_strcut($t.buy_username, 10)}</a></td>
+                            <td><a href="javascript:;" onclick="dr_dialog_member('{$t.sell_uid}')">{dr_strcut($t.sell_username, 10)}</a></td>
+                            <td>{if $t.order_score}{intval($t.order_price)}{SITE_SCORE}{else}¥{number_format($t.order_price, 2)}{/if}</td>
+                            <td>{dr_date($t.order_time, '', 'red')}</td>
+                            <td>{order_status($t)}</td>
+                        </tr>
+                        {/list}
+                        </tbody>
+                        <tr>
+                            <td colspan="6"><div id="pages"><a href="javascript:void(0);">{L('共%s条', $total)}</a>{$pages}</div></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

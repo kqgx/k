@@ -1,0 +1,84 @@
+{template nheader.html}
+<div class="page-bar">
+	<ul class="page-breadcrumb mylink">
+		{$menu.link}
+
+	</ul>
+	<ul class="page-breadcrumb myname">
+		{$menu.name}
+	</ul>
+	<div class="page-toolbar">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-hover="dropdown"> {L('操作菜单')}
+				<i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				{loop $menu.quick $t}
+				<li>
+					<a href="{$t.url}">{$t.icon} {$t.name}</a>
+				</li>
+				{/loop}
+				<li class="divider"> </li>
+				<li>
+					<a href="javascript:window.location.reload();">
+						<i class="icon-refresh"></i> {L('刷新页面')}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<h3 class="page-title">
+	<small>{L('在会员模型中可以把会员自定义字段划分给指定会员组使用')}</small>
+</h3>
+<form action="" method="post" name="myform" id="myform">
+	<input name="action" id="action" type="hidden" value="" />
+	<div class="portlet mylistbody">
+		<div class="portlet-body">
+			<div class="table-scrollable">
+				<table class="mytable table table-striped table-bordered table-hover table-checkable dataTable">
+		<thead>
+		<tr>
+			<th width="20"></th>
+			<th width="40">Id</th>
+			<th width="80" style="text-align: center">{L('排序')}</th>
+			<th>{L('名称')}</th>
+			<th width="150">{L('价格要求')}</th>
+			<th width="80" style="text-align: center">{L('允许申请')}</th>
+			<th class="dr_option">{L('操作')}</th>
+		</tr>
+		</thead>
+		<tbody>
+
+		{loop $list $t}
+		<tr id="dr_row_{$t.id}">
+			<td><input name="ids[]" type="checkbox" value="{$t.id}" class="toggle md-check dr_select" /></td>
+			<td>{$t.id}</td>
+			<td style="text-align: center"><input class="input-text displayorder" type="text" name="data[{$t.id}][displayorder]" value="{$t.displayorder}" /></td>
+			<td>{if $this->ci->is_auth('admin/member/group/edit')}<a href="{dr_url('admin/member/group/edit', array('id' => $t.id))}">{$t.name}</a>{else}{$t.name}{/if}</td>
+			<td>{$t.price}</td>
+			<td style="text-align: center" align="center"><a href="{dr_url('admin/member/group/option', array('op' => 'apply', 'id' => $t.id))}"><img src="{THEME_PATH}admin/images/{$t.allowapply}.gif"></a></td>
+			<td class="dr_option">
+			{if $t['id']>2 && $this->ci->is_auth('admin/member/level/index')}<a class="alist" href="{dr_url('admin/member/level/index', array('gid' => $t.id))}"> <i class="fa fa-table"></i> {L('等级管理')}</a>{/if}
+			{if $this->ci->is_auth('admin/member/group/edit')}<a class="aedit" href="{dr_url('admin/member/group/edit',array('id' => $t.id))}"> <i class="fa fa-edit"></i> {L('修改')}</a>{/if}
+			{if $this->ci->is_auth('admin/member/group/del') &&  $t.id>3}<a class="adel" href="javascript:;" onClick="return dr_dialog_del('{L('您确定要这样操作吗？')}','{dr_url('member/group/del', array('id' => $t.id))}');"> <i class="fa fa-trash"></i> {L('删除')}</a>{/if}
+			{if $t.id>2 && !$t.level}<b><font color=red>{L('会员组无效，请添加会员等级')}</font></b>{/if}
+			</td>
+		</tr>
+		{/loop}
+		<tr class="mtable_bottom">
+			<th width="20" ><input class="toggle md-check" name="dr_select" id="dr_select" type="checkbox" onClick="dr_selected()" /></th>
+			<td colspan="98" >
+			{if $this->ci->is_auth('admin/member/group/del')}
+				<button type="button" class="btn red btn-sm" value="" name="option" onClick="$('#action').val('del');dr_confirm_set_all('{L('您确定要这样操作吗？')}')"> <i class="fa fa-trash"></i> {L('删除')}</button>{/if}
+            {if $this->ci->is_auth('admin/member/group/edit')}
+				<button type="button" class="btn green btn-sm" value="" name="option" onClick="$('#action').val('edit');dr_confirm_set_all('{L('您确定要这样操作吗？')}')"> <i class="fa fa-edit"></i> {L('排序')}</button>{/if}
+			</td>
+		</tr>
+		</tbody>
+		</table>
+		</div>
+	</div>
+</div>
+
+</form>
+{template nfooter.html}

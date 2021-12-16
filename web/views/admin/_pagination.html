@@ -1,0 +1,15 @@
+<!--Created by mtdev Chaixiha@mutaoinc.com-->
+<div class="row">
+	<div class="col-md-12 text-center">
+		<ul class="pagination">
+		    {if $pages.first}<li><a href="{$pages.first}">第一页</a></li>{/if}
+		    {if $pages.prev}<li><a href="{$pages.prev}">上一页</a></li>{/if}
+        	{loop $pages.page $k=>$t}
+        	<li {if $get.page==$k || (!$get.page && $k==1)}class="active"{/if}><a href="{$t}">{$k}</a></li>
+        	{/loop}
+			{if $pages.next}<li><a href="{$pages.next}">下一页</a></li>{/if}
+			{if $pages.last}<li><a href="{$pages.last}">最后一页</a></li>{/if}
+			<li><a href="javascript:;" class="noloading">共{$pages.total}条</a></li>
+		</ul>
+	</div>
+</div> 

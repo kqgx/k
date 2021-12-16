@@ -1,0 +1,24 @@
+<script type="text/javascript">
+$(function() {
+	document.onkeydown = function(e){  //防止回车提交表单
+		var ev = document.all ? window.event : e;
+		if (ev.keyCode==13) {
+			$("#mark").val("1"); // 标识不能提交表单
+		}
+	}
+});
+function dr_form_check() {
+	if ($("#mark").val() == 0) { 
+		return true;
+	} else {
+		return false;
+	}
+}
+</script>
+<form action="" method="post" id="myform" name="myform" onsubmit="return dr_form_check()">
+<input name="mark" id="mark" type="hidden" value="0">
+<table width="530" border="0" cellspacing="0" cellpadding="0" class="table-list">
+    会员栏目权限设置功能暂未开放
+</table>
+
+</form>

@@ -1,0 +1,220 @@
+<div class="wb-container">
+	<div class="page-header">
+		当前位置：<span class="text-primary">form/表单</span>
+	</div>
+	<div class="page-content">
+        <form action="" method="post" class="form-horizontal form-validate" enctype="multipart/form-data" >
+            <div class="form-group-title">form-group-title</div>
+			<div class="form-group">
+				<label class="col-lg control-label">radio</label>
+				<div class="col-sm-9">
+					<label class="radio-inline">
+					<input type="radio" name="data[open]" value="1">开启</label>
+					<label class="radio-inline">
+					<input type="radio" name="data[open]" value="0" checked="checked">关闭</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg control-label">checkbox</label>
+				<div class="col-sm-9 col-xs-12">
+					<label class="checkbox-inline">
+					<input type="checkbox" name="data[sns][qq]" value="1">QQ登录</label>
+					<label class="checkbox-inline">
+					<input type="checkbox" name="data[sns][wx]" value="1">微信登录</label>
+				</div>
+			</div>
+			<div class="form-group">
+			    <label class="col-lg control-label">switch</label>
+			    <div class="col-sm-9 col-xs-12">
+			        <input type="checkbox" class="js-switch small" name="buyshow" value="1"  />
+			    </div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg control-label">input</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="name" value="" placeholder="请输入商品组名称">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg control-label">input-group-addon</label>
+				<div class="col-sm-9 col-xs-12">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">单位</span>
+						<input type="text" class="form-control" value="">
+						<div class="input-group-addon">
+							单位
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+			    <label class="col-lg control-label">input-group-btn</label>
+			    <div class="col-sm-9 col-xs-12">
+    		        <div class="input-group col-sm-6">
+    					<input type="text" class="input-sm form-control" name="keyword" value="" placeholder="ID/名称/编号/条码/商户名称"><span class="input-group-btn">
+    					<button class="btn btn-primary" type="submit"> 搜索</button>
+    					</span>
+    				</div>
+			    </div>
+			</div>
+            <div class="form-group">
+            	<label class="col-lg control-label">inline</label>
+            	<div class="col-sm-9 col-xs-12">
+            		<div class="input-group" style="width: 450px;">
+            			<span class="form-control" style="width: 120px;">
+            			<label class="checkbox-inline" style="padding-top: 0;"><input type="checkbox" style="margin-top: -9px" value="1" checked=""> 开启补签</label>
+            			</span>
+            			<span class="input-group-addon" style="border-left: 0; border-right: 0;">补签扣除(每天/次)</span>
+            			<input class="form-control" type="number" value="0" style="width: 100px;">
+            			<span class="input-group-addon" style="border-left: 0;">
+            			<label class="radio-inline" style="padding-top: 0;"><input style="margin-top: -9px" type="radio" value="0" checked=""> 余额</label>
+            			<label class="radio-inline" style="padding-top: 0;"><input style="margin-top: -9px" type="radio" value="1"> 积分</label>
+            			</span>
+            		</div>
+            		<div class="help-block text-danger">
+            			提示：补签只发放日常奖励请在规则中说明，仅可扣除余额或积分，补签只可为当月漏签日期补签
+            		</div>
+            	</div>
+            </div>
+			<div class="form-group">
+				<label class="col-lg control-label">select</label>
+				<div class="col-sm-9 col-xs-12">
+					<select class="form-control" name="data[style]">
+						<option value="new" selected="">new</option>
+						<option value="default">default</option>
+						<option value="diypage">diypage</option>
+					</select>
+				</div>
+			</div>
+            <div class="form-group">
+                <label class="col-lg control-label">select2</label>
+                <div class="col-sm-9 col-xs-12">
+                    <select class="select2" name="data[select]" style="display: block; width: 100%">
+                        <option value="1176" selected >手机通讯</option>
+                        <option value="1217"  >电脑硬件</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg control-label">multiple</label>
+                <div class="col-sm-9 col-xs-12">
+                    <select class="select2" name="data[select][]" multiple='' style="display: block; width: 100%">
+                        <option value="1176" selected >手机通讯</option>
+                        <option value="1217" selected >电脑硬件</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg control-label">datetimepicker</label>
+                <div class="col-sm-9 col-xs-12">
+                    <input type="text" name="isdiscount_time" value="2018-09-14 09:55:00" placeholder="请选择日期时间" readonly="readonly" class="datetimepicker form-control" data-formate="Y-m-d H:i" />
+        		</div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg control-label">daterange</label>
+                <div class="col-sm-9 col-xs-12">
+                	<button style="width:240px" class="btn btn-default daterange daterange-time" data-formate="YYYY-MM-DD HH:mm" type="button"><span class="date-title">2018-11-14 23:03 至 2018-11-27  23:03</span></button>
+                    <button class="btn btn-default btn-sm" type="button" onclick="clearTime(this)" placeholder="充值时间"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+			<div class="form-group">
+				<label class="col-lg control-label">textarea</label>
+				<div class="col-sm-9 col-xs-12">
+					<textarea style="height:100px;" name="data[goods_detail_text]" class="form-control" rows="5"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg control-label">editor</label>
+				<div class="col-sm-9 col-xs-12">
+					<textarea id="content" name="data[content]" class="form-control" data-plugin="editor" data-options={} style="height: 200px"></textarea>
+				</div>
+			</div>
+            <div class="form-group">
+            	<label class="col-lg control-label">商品图片</label>
+            	<div class="col-sm-9 col-xs-12 gimgs">
+            		<script type="text/javascript">
+                    	function uploadMultiImage(elm) {
+                    		var name = $(elm).next().val();
+                    		util.image( "", function(urls){
+                    			$.each(urls, function(idx, url){
+                    				$(elm).parent().parent().next().append('<div class="multi-item"><img onerror="this.src=\'../addons/ewei_shopv2/static/images/nopic.png\'; this.title=\'图片未找到.\'" src="'+url.url+'" class="img-responsive img-thumbnail"><input type="hidden" name="'+name+'[]" value="'+url.attachment+'"><em class="close" title="删除这张图片" onclick="deleteMultiImage(this)">×</em></div>');
+                    			});
+                    		}, {"multiple":true,"direct":false,"fileSizeLimit":5120000});
+                    	}
+                    	function deleteMultiImage(elm){
+                    		require(["jquery"], function($){
+                    			$(elm).parent().remove();
+                    		});
+                    	}
+            		</script>
+            		<div class="input-group">
+            			<input type="text" class="form-control" readonly="readonly" value="" placeholder="批量上传图片" autocomplete="off">
+            			<span class="input-group-btn">
+            			<button class="btn btn-primary" type="button" onclick="uploadMultiImage(this);">选择图片</button>
+            			<input type="hidden" value="thumbs"/>
+            			</span>
+            		</div>
+            		<div class="input-group multi-img-details">
+            			<div class="multi-item">
+            				<img src="https://weixin.mutaoinc.cn/attachment/images/5/2017/12/XdzTlK2mMNm9L3mvkj3tct2t3m2MuKdD.jpg" onerror="this.src='../addons/ewei_shopv2/static/images/nopic.png'; this.title='图片未找到.'" class="img-responsive img-thumbnail">
+            				<input type="hidden" name="thumbs[]" value="images/5/2017/12/XdzTlK2mMNm9L3mvkj3tct2t3m2MuKdD.jpg">
+            				<em class="close" title="删除这张图片" onclick="deleteMultiImage(this)">×</em>
+            			</div>
+            			<div class="multi-item">
+            				<img src="https://weixin.mutaoinc.cn/attachment/images/5/2017/12/QDxQ9QVdD40Vyh9zq0DxGIVvDQbG34Gx.jpg" onerror="this.src='../addons/ewei_shopv2/static/images/nopic.png'; this.title='图片未找到.'" class="img-responsive img-thumbnail">
+            				<input type="hidden" name="thumbs[]" value="images/5/2017/12/QDxQ9QVdD40Vyh9zq0DxGIVvDQbG34Gx.jpg">
+            				<em class="close" title="删除这张图片" onclick="deleteMultiImage(this)">×</em>
+            			</div>
+            			<div class="multi-item">
+            				<img src="https://weixin.mutaoinc.cn/attachment/images/5/2017/12/c3mPq1KkK9PiAH53gAEx9gp1QO23rqva.jpg" onerror="this.src='../addons/ewei_shopv2/static/images/nopic.png'; this.title='图片未找到.'" class="img-responsive img-thumbnail">
+            				<input type="hidden" name="thumbs[]" value="images/5/2017/12/c3mPq1KkK9PiAH53gAEx9gp1QO23rqva.jpg">
+            				<em class="close" title="删除这张图片" onclick="deleteMultiImage(this)">×</em>
+            			</div>
+            			<div class="multi-item">
+            				<img src="https://weixin.mutaoinc.cn/attachment/images/5/2017/12/ezrK646g4j666EG4nj566J2nbJ6Jbbn2.jpg" onerror="this.src='../addons/ewei_shopv2/static/images/nopic.png'; this.title='图片未找到.'" class="img-responsive img-thumbnail">
+            				<input type="hidden" name="thumbs[]" value="images/5/2017/12/ezrK646g4j666EG4nj566J2nbJ6Jbbn2.jpg">
+            				<em class="close" title="删除这张图片" onclick="deleteMultiImage(this)">×</em>
+            			</div>
+            			<div class="multi-item">
+            				<img src="https://weixin.mutaoinc.cn/attachment/images/5/2017/12/KX3xz7VlNXV3A003l3x3iulA42zd03ZW.png" onerror="this.src='../addons/ewei_shopv2/static/images/nopic.png'; this.title='图片未找到.'" class="img-responsive img-thumbnail">
+            				<input type="hidden" name="thumbs[]" value="images/5/2017/12/KX3xz7VlNXV3A003l3x3iulA42zd03ZW.png">
+            				<em class="close" title="删除这张图片" onclick="deleteMultiImage(this)">×</em>
+            			</div>
+            		</div>
+            		<span class="help-block image-block">第一张为缩略图，建议为正方型图片，其他为详情页面图片，尺寸建议宽度为640，并保持图片大小一致</span>
+            		<span class="help-block">您可以拖动图片改变其显示顺序 </span>
+            	</div>
+            </div>
+            <div class="form-group">
+            	<label class="col-lg control-label">主色调</label>
+            	<div class="col-sm-9 col-xs-12" id="maincolor">
+            		<div class="row row-fix">
+            			<div class="col-xs-8 col-sm-8" style="padding-right:0;">
+            				<div class="input-group">
+            					<input class="form-control" type="text" name="data[color]" placeholder="请选择颜色" value="">
+            					<span class="input-group-addon" style="width:35px;border-left:none;background-color:"></span>
+            					<span class="input-group-btn">
+            					<button class="btn btn-default" data-toggle="colorpicker" type="button">选择颜色 <i class="fa fa-caret-down"></i></button>
+            					<button class="btn btn-default" data-toggle="colorclean" type="button"><span><i class="fa fa-remove"></i></span></button>
+            					</span>
+            				</div>
+            			</div>
+            		</div>
+            	</div>
+            </div>
+            <div class="form-group-title">校验</div>
+			<div class="form-group">
+				<label class="col-lg control-label">必填</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="name" value="" placeholder="" data-rule-required="true">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg control-label"></label>
+				<div class="col-sm-9 col-xs-12">
+					<input type="submit" value="提交" class="btn btn-primary">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

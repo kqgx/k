@@ -1,0 +1,54 @@
+{template header.html}
+<form action="" method="post" name="myform" id="myform">
+    <input name="page" id="page" type="hidden" value="{$page}" />
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x">
+            {$menu}
+        </div>
+        <div class="bk10"></div>
+        <fieldset>
+            <legend>{L('录入/查看转账')}</legend>
+            <table width="100%" class="table_form">
+                <tbody>
+                <tr>
+                    <th width="200">* {L('订单号')}</th>
+                    <td>
+                        <input class="input-text" type="text" name="data[sn]" value="{$sn}" style="width:70%;">
+                    </td>
+                </tr>
+                <tr>
+                    <th width="200">* {L('银行名称')}</th>
+                    <td>
+                        <input class="input-text" type="text" name="data[bank_name]" value="{$data[bank_name]}" style="width:70%;">
+                    </td>
+                </tr>
+                <tr>
+                    <th width="200">* {L('银行卡号')}</th>
+                    <td>
+                        <input class="input-text" type="text" name="data[bank_sn]" value="{$data[bank_sn]}" style="width:70%;">
+                    </td>
+                </tr>
+                <tr class="dr_border_none">
+                    <th>{L('备注说明')}</th>
+                    <td>
+                        <textarea name="data[note]" style="width:80%; height:200px;margin-top:10px;">{$data[note]}</textarea>
+                    </td>
+                </tr>
+                <tr class="dr_border_none">
+                    <th>{L('转账凭证图片')}</th>
+                    <td>
+                        {dr_field_input('bank_note', 'File', $field['bank_note']['setting'], $data['bank_note'])}
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+    <div class="fixed-bottom">
+        <div class="fixed-but text-c">
+            <div class="button"><input value="{L('提交')}" type="submit" name="submit" class="cu" style="width:100px;" /></div>
+        </div>
+    </div>
+</form>
+{template footer.html}

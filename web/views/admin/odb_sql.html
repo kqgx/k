@@ -1,0 +1,128 @@
+{template nheader.html}
+
+<form class="form-horizontal" action="" method="post" id="myform" name="myform">
+	<div class="page-bar">
+		<ul class="page-breadcrumb mylink">
+			{$menu.link}
+		</ul>
+		<ul class="page-breadcrumb myname">
+			{$menu.name}
+		</ul>
+		<div class="page-toolbar">
+			<div class="btn-group pull-right">
+				<button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-hover="dropdown"> {L('操作菜单')}
+					<i class="fa fa-angle-down"></i>
+				</button>
+				<ul class="dropdown-menu pull-right" role="menu">
+					{loop $menu.quick $t}
+					<li>
+						<a href="{$t.url}">{$t.icon} {$t.name}</a>
+					</li>
+					{/loop}
+					<li class="divider"> </li>
+					<li>
+						<a href="javascript:window.location.reload();">
+							<i class="icon-refresh"></i> {L('刷新页面')}</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<h3 class="page-title">
+		<small></small>
+	</h3>
+	<div class="portlet light bordered ">
+
+		<div class="portlet-title">
+			<div class="caption">
+				<span class="caption-subject font-green sbold uppercase">{L('SQL语句')}</span>
+			</div>
+		</div>
+		<div class="portlet-body">
+
+			<div class="row">
+				<div class="portlet-body form">
+
+					<div class="form-body">
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">{L('SQL语句')}：</label>
+							<div class="col-md-9">
+
+								<textarea name="code" style="height:80px;width:99%;">{$sql}</textarea>
+
+								<span class="help-block">
+									<p style="margin-top: 25px">list查询标签获取SQL语句的方法为：<?php echo '{'.'$sql}';?></p>
+									<p style="margin-top: 5px">模块内容搜索获取SQL语句的方法为：<?php echo '{'.'$search_sql}';?> </p>
+
+								</span>
+							</div>
+						</div>
+
+
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="portlet light bordered myfbody">
+
+		<div class="portlet-title">
+			<div class="caption">
+				<span class="caption-subject font-green sbold uppercase">{L('优化方案')}</span>
+			</div>
+		</div>
+		<div class="portlet-body">
+{if $explain}
+			<table class="mytable table table-striped table-bordered table-hover table-checkable dataTable">
+
+				<thead>
+				<tr>
+					<th width="20" align="right"></th>
+					<th width="200" align="left">{L('项目')}</th>
+					<th width="300" align="">{L('结果')}</th>
+					<th align="left" class="dr_option">{L('分析')}</th>
+				</tr>
+				</thead>
+				<tbody>
+				{loop $explain $i $t}
+				<tr>
+					<td align="left">{$i+1}</td>
+					<td align="left">{$t.name}</td>
+					<td align="left">{$t.result}</td>
+					<td align="left" class="dr_option">
+						{$t.fangan}
+					</td>
+				</tr>
+				{/loop}
+				</tbody>
+			</table>
+
+{/if}
+		</div>
+	</div>
+
+	<div class="myfooter">
+		<div class="row">
+			<div class="portlet-body form">
+				<div class="form-body">
+					<div class="form-actions">
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<button type="submit" class="btn green"> <i class="fa fa-search"></i> {L('查询分析')}</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+
+{template "nfooter.html"}

@@ -1,0 +1,149 @@
+{template nheader.html}
+<div class="page-bar">
+    <ul class="page-breadcrumb mylink">
+        {$menu.link}
+    </ul>
+    <ul class="page-breadcrumb myname">
+        {$menu.name}
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-hover="dropdown"> {L('操作菜单')}
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                {loop $menu.quick $t}
+                <li>
+                    <a href="{$t.url}">{$t.icon} {$t.name}</a>
+                </li>
+                {/loop}
+                <li class="divider"> </li>
+                <li>
+                    <a href="javascript:window.location.reload();">
+                        <i class="icon-refresh"></i> {L('刷新页面')}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<h3 class="page-title">
+    <small>{L('每个模块都具有支付或买卖功能，只需在这里配置开启即可')}</small>
+</h3>
+<form action="" class="form-horizontal" method="post" name="myform" id="myform">
+    <input name="page" id="page" type="hidden" value="{$page}" />
+    <div class="portlet light bordered myfbody">
+        <div class="portlet-title tabbable-line">
+            <ul class="nav nav-tabs" style="float:left;">
+                {loop $module $i $t}
+                <li class="{if $page==$i}active{/if}">
+                    <a href="#tab_{$i}" data-toggle="tab" onclick="$('#page').val('{$i}')"> <i class="{$t.icon}"></i> {$t.name} </a>
+                </li>
+                {/loop}
+            </ul>
+        </div>
+        <div class="portlet-body">
+            <div class="tab-content">
+
+                {loop $module $i $t}
+                {php $dir=$t.dirname;}
+                <div class="tab-pane {if $page==$i}active{/if}" id="tab_{$i}">
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{L('开启电商功能')}：</label>
+                        <div class="col-md-9">
+                            <div class="radio-list">
+                                <label class="radio-inline"><input type="radio" onclick="$('#dr_use_show').show()" name="data[{$dir}][use]" value="1" {if $data[$dir]['use']}checked=""{/if}> {L('开启')} </label>
+                                <label class="radio-inline"><input type="radio" name="data[{$dir}][use]" value="0" {if !$data[$dir]['use']}checked=""{/if}> {L('关闭')} </label>
+                            </div>
+                            {if !$t.is_price}<span id="dr_use_show" class="help-block" style="color:red;{if !$data[$dir]['use']}display:none{/if}"><a href="{$t.fieldurl}" style="color:red;">{L('请在模块自定义字段中创建“价格字段（主表）”，字段名必须是：order_price')}</a></span>{/if}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{L('开启销量统计')}：</label>
+                        <div class="col-md-9">
+                            <div class="radio-list">
+                                <label class="radio-inline"><input type="radio" onclick="$('#dr_volume_show').show()" name="data[{$dir}][volume]" value="1" {if $data[$dir]['volume']}checked=""{/if}> {L('开启')} </label>
+                                <label class="radio-inline"><input type="radio" name="data[{$dir}][volume]" value="0" {if !$data[$dir]['volume']}checked=""{/if}> {L('关闭')} </label>
+                            </div>
+                            {if !$t.is_volume}<span id="dr_volume_show" class="help-block" style="color:red;{if !$data[$dir]['volume']}display:none{/if}"><a href="{$t.fieldurl}" style="color:red;">{L('请在模块自定义字段中创建“单行文本字段（主表）”，字段名必须是：order_volume')}</a></span>{/if}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{L('开启库存功能')}：</label>
+                        <div class="col-md-9">
+                            <div class="radio-list">
+                                <label class="radio-inline"><input type="radio" onclick="$('#dr_quantity_show').show()" name="data[{$dir}][quantity]" value="1" {if $data[$dir]['quantity']}checked=""{/if}> {L('开启')} </label>
+                                <label class="radio-inline"><input type="radio" name="data[{$dir}][quantity]" value="0" {if !$data[$dir]['quantity']}checked=""{/if}> {L('关闭')} </label>
+                            </div>
+                            {if !$t.is_quantity}<span id="dr_quantity_show" class="help-block" style="color:red;{if !$data[$dir]['quantity']}display:none{/if}"><a href="{$t.fieldurl}" style="color:red;">{L('请在模块自定义字段中创建“单行文本字段（主表）”，字段名必须是：order_quantity')}</a></span>{/if}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{L('开启物流功能')}：</label>
+                        <div class="col-md-9">
+                            <div class="radio-list">
+                                <label class="radio-inline"><input type="radio" name="data[{$dir}][shipping]" value="1" {if $data[$dir]['shipping']}checked=""{/if}> {L('开启')} </label>
+                                <label class="radio-inline"><input type="radio" name="data[{$dir}][shipping]" value="0" {if !$data[$dir]['shipping']}checked=""{/if}> {L('关闭')} </label>
+                            </div>
+                            <span class="help-block">{L('关闭之后在下订单是就不会出现物流地址的填写了')}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{L('订单交易步骤')}：</label>
+                        <div class="col-md-9">
+                            <label>
+                                <select class="form-control" name="data[{$dir}][buy_step]">
+                                    <option value="0" {if !$data[$dir]['buy_step']}selected=""{/if}>{L('付款→发货→收货→完成')}</option>
+                                    <option value="3" {if 3==$data[$dir]['buy_step']}selected=""{/if}>{L('付款→收货→完成')}</option>
+                                    <option value="1" {if 1==$data[$dir]['buy_step']}selected=""{/if}>{L('付款→发货→完成')}</option>
+                                    <option value="2" {if 2==$data[$dir]['buy_step']}selected=""{/if}>{L('付款→完成')}</option>
+                                </select>
+                            </label>
+                            <span class="help-block">{L('可根据商品的实际情况选择一种交易模式')}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{L('支付交易类型')}：</label>
+                        <div class="col-md-9">
+                            <div class="radio-list">
+                                <label class="radio-inline"><input type="radio" name="data[{$dir}][pay]" value="1" {if $data[$dir]['pay']}checked=""{/if}> {SITE_SCORE} </label>
+                                <label class="radio-inline"><input type="radio" name="data[{$dir}][pay]" value="0" {if !$data[$dir]['pay']}checked=""{/if}> {SITE_MONEY} </label>
+                            </div>
+                            <span class="help-block">{L('虚拟币类型时只支持在线支付，不支持货到付款功能')}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{L('销量更新方式')}：</label>
+                        <div class="col-md-9">
+                            <div class="radio-list">
+                                <label class="radio-inline"><input type="radio" name="data[{$dir}][k_volume]" value="1" {if $data[$dir]['k_volume']}checked=""{/if}> {L('付款后')} </label>
+                                <label class="radio-inline"><input type="radio" name="data[{$dir}][k_volume]" value="0" {if !$data[$dir]['k_volume']}checked=""{/if}> {L('交易完成后')} </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {/loop}
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="myfooter">
+        <div class="row">
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button type="submit" class="btn green"> <i class="fa fa-save"></i> {L('保存')}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{template nfooter.html}

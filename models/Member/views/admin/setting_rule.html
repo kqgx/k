@@ -1,0 +1,53 @@
+<script type="text/javascript">
+$(function() {
+	document.onkeydown = function(e){  //防止回车提交表单
+		var ev = document.all ? window.event : e;
+		if (ev.keyCode==13) {
+			$("#mark").val("1"); // 标识不能提交表单
+		}
+	}
+});
+function dr_form_check() {
+	if ($("#mark").val() == 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+</script>
+<div style="width: 600px">
+<form class="form-horizontal" onsubmit="return dr_form_check()">
+<input name="mark" id="mark" type="hidden" value="0">
+    {if $get.id}
+    <div class="form-group">
+        <label class="col-lg control-label">{L('附件权限')}</label>
+        <div class="col-sm-9 col-xs-12">
+			<label class="checkbox-inline">
+			<input type="checkbox" name="data[is_upload]" value="1" {if $data['is_upload']}checked{/if} >{L('是否允许上传附件')}</label>
+			<label class="checkbox-inline">
+			<input type="checkbox" name="data[is_download]" value="1" {if $data['is_download']}checked{/if}>{L('是否允许下载附件')}</label>
+		</div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg control-label">{L('空间大小')}</label>
+        <div class="col-sm-9 col-xs-12">
+			<div class="input-group">
+				<input type="text" name="data[attachsize]" class="form-control" value="{intval($data['attachsize'])}"  size="5" />
+				<div class="input-group-addon">MB</div>
+			</div>
+			<div class="help-block">
+            	可上传附件总大小	
+            </div>
+		</div>
+    </div>
+    {else}
+    <div class="form-group">
+        <label class="col-lg control-label">{L('附件权限')}</label>
+        <div class="col-sm-9 col-xs-12">
+			<label class="checkbox-inline">
+			<input type="checkbox" name="data[is_download]" value="1" {if $data['is_download']}checked{/if}>{L('是否允许下载附件')}</label>
+		</div>
+    </div>
+    {/if}
+</form>
+</div>

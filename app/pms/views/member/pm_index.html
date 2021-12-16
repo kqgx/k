@@ -1,0 +1,121 @@
+{template nheader.html}
+<script type="text/javascript">
+$(function(){
+	$("#dr_loadmore").click(function(){
+		var page = $("#dr_page").val();
+		$("#dr_loadmore").html('<img src="{MEMBER_THEME_PATH}loading.gif">');
+		$.get("{$searchurl}", {page:page}, function(data){
+			if (data != "null") {
+				$("#dr_body").append(data);
+				$("#dr_page").val(Number(page) + 1);
+				$("#dr_loadmore").html('<i class="fa fa-refresh"></i> 加载更多');
+			} else {
+				$("#dr_loadmore_html").hide();
+			}
+		});
+	});
+});
+function dr_read() {
+    $("#action").val('read');
+	var _data = $("#myform").serialize();
+	var _url = window.location.href;
+	if ((_data.split('ids')).length-1 <= 0) {
+		$.dialog.tips("到底标注谁？您还没有选择呢", 2);
+		return true;
+	}
+	$.ajax({type: "POST",dataType:"json", url: _url, data: _data,
+		success: function(data) {
+			if (data.status == 1) {
+				$.dialog.tips(data.code, 3, 1);
+				setTimeout('window.location.reload(true)', 3000);
+			} else {
+				$.dialog.tips(data.code, 3, 2);
+				return true;
+			}
+		},
+		error: function(HttpRequest, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + HttpRequest.statusText + "\r\n" + HttpRequest.responseText);
+		}
+	});
+	return false;
+}
+function dr_delete(id) {
+	var _url = window.location.href;
+    art.dialog.confirm("<font color=red><b>你确认要删除吗？</b></font>", function(){
+		var _data = $("#myform").serialize();
+		if ((_data.split('ids')).length-1 <= 0) {
+			dr_tips("到底标删除？您还没有选择呢", 2);
+			return true;
+		}
+		$.ajax({type: "POST",dataType:"json", url: _url, data: _data, success: function(data) {
+				if (data.status == 1) {
+					dr_tips(data.code, 3, 1);
+
+				} else {
+					dr_tips(data.code, 3, 0);
+				}
+			setTimeout("window.location.reload(true)", 3000)
+                art.dialog.close();
+                return false;
+			},
+			error: function(HttpRequest, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + HttpRequest.statusText + "\r\n" + HttpRequest.responseText);
+			}
+		});
+		return true;
+	});
+	return false;
+}
+</script>
+<input name="page" id="dr_page" type="hidden" value="2" />
+<input name="order" id="dr_order" type="hidden" value="{$get.order}" />
+
+<div class="row">
+	<div class="col-md-12">
+
+		<form action="" method="post" name="myform" id="myform">
+			<input name="action" id="action" type="hidden" value="" />
+		<div class="portlet light portlet-fit bg-inverse ">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-envelope font-red"></i>
+					<span class="caption-subject bold font-red uppercase"> 站内消息</span>
+				</div>
+				<div class="actions">
+
+					<label>
+						<div class="btn-group">
+							<a class="btn green" href="{dr_member_url('pms/home/send')}"> 发消息
+								<i class="fa fa-plus"></i>
+							</a>
+						</div>
+					</label>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="timeline  white-bg" id="dr_body">
+					{template pm_data.html}
+				</div>
+				<div class="row">
+					<div class="col-md-12" style="padding-left: {if IS_PC}48{else}32{/if}px">
+						<input type="checkbox" onclick="dr_selected2()" id="dr_select" class="dr_select toggle md-check">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button type="button" onClick="dr_delete()" class="btn red"><i class="fa fa-trash-o"></i> 删除</button>
+						<button type="button" onClick="dr_read()" class="btn green"><i class="fa fa-envelope"></i> 标记已读</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+
+
+	</div>
+</div>
+
+
+<div class="row" id="dr_loadmore_html" style="margin-top:20px">
+	<div class="col-md-offset-4 col-md-4 text-center">
+		<a href="javascript:;" class="btn default btn-block" id="dr_loadmore"> <i class="fa fa-refresh"></i> 加载更多 </a>
+	</div>
+</div>
+{template nfooter.html}

@@ -1,0 +1,11 @@
+<script>
+	window.onload = function(){
+	    top.hideNavHide();
+	    $("body").fadeIn();
+	}
+	window.onerror = function(){
+	    setTimeout(function(){
+	        $("body").fadeIn();
+	    }, 100);
+	}
+</script>

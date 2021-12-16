@@ -1,0 +1,17 @@
+<div class="wb-container">
+	<div class="page-header">
+		当前位置：<span class="text-primary">text/文本</span>
+	</div>
+	<div class="page-content">
+	    <div class="form-group-title">label</div>
+	    {loop $color $t}
+	    <span class="label label-{$t}">label-{$t}</span>
+	    {/loop}	   
+        <div class="form-group-title">help-block</div>
+        {loop $color $t}
+		<div class="help-block text-{$t}">
+			text-{$t}：开启后用户在请求发送短信验证码时需先填写图形二维码并验证成功(仅在用户注册、找回密码、绑定手机号生效)
+		</div>
+		{/loop}
+	</div>
+</div>

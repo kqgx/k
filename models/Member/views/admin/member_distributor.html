@@ -1,0 +1,99 @@
+{template nheader.html}
+{php $_pages=$pages;}
+<div class="page-bar">
+	<ul class="page-breadcrumb mylink">
+		{$menu.link}
+	</ul>
+	<ul class="page-breadcrumb myname">
+		{$menu.name}
+	</ul>
+	<div class="page-toolbar">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"
+				aria-expanded="false" data-hover="dropdown"> {L('操作菜单')}
+				<i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				{loop $menu.quick $t}
+				<li>
+					<a href="{$t.url}">{$t.icon} {$t.name}</a>
+				</li>
+				{/loop}
+				<li class="divider"> </li>
+				<li>
+					<a href="javascript:window.location.reload();">
+						<i class="icon-refresh"></i> {L('刷新页面')}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="portlet mylistbody">
+	<div class="portlet-body">
+		<div class="table-scrollable" style="overflow-y:initial;overflow-x:initial;">
+			<table class="mytable table table-striped table-bordered table-hover table-checkable dataTable">
+				<thead>
+					<tr>
+						<th>{L('推广码')}</th>
+						<th class="{ns_sorting('username')}" name="username">{L('会员')}</th>
+						<th class="{ns_sorting('name')}" name="name">{L('姓名')}</th>
+						<th class="{ns_sorting('sex')}" name="sex">{L('性别')}</th>
+						<th class="{ns_sorting('phone')}" name="phone">{L('手机号码')}</th>
+						<!-- <th class="{ns_sorting('common_address')}" name="common_address">{L('常用地址')}</th> -->
+						<th>{L('本月推荐')}</th>
+						<th class="{ns_sorting('regtime')}" name="regtime">{L('注册时间')}</th>
+						<th class="dr_option" width="300px">{L('操作')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $list $t}
+					<tr id="dr_row_{$t.uid}">
+						<td>{$t.randcode}</td>
+						<td>
+							<a onclick="dr_dialog_member('{$t.uid}')" href="javascript:;">
+								{dr_keyword_highlight($t.username, $param.keyword)}
+							</a>
+						</td>
+						<td>{$t.name}</td>
+						<td>{$t.sex}</td>
+						<td>{$t.phone}</td>
+						<!-- <td>{$t.common_address}</td> -->
+						<td>{$t.month_hits}</td>
+						<td>{dr_date($t.regtime, NULL, 'red')}</td>
+						<td class="dr_option">
+							<a class="btn green btn-xs" href="{dr_url('admin/member/distributor', array('uid' => $t.uid, 'action' => 'first'))}" style="{$t.randcode ? '' : 'border:1px solid #b6b6b6;background: #b6b6b6;pointer-events: none;'}"> <i class="fa fa-cube"></i> 
+								{L('一级下线')} </a>
+							<a class="btn green btn-xs" href="{dr_url('admin/member/distributor', array('uid' => $t.uid, 'action' => 'second'))}" style="{$t.randcode ? '' : 'border:1px solid #b6b6b6;background: #b6b6b6;pointer-events: none;'}"> <i class="fa fa-cubes"></i> 
+								{L('二级下线')} </a>
+							<div class="btn-group">
+								<button type="button" class="btn green btn-xs dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> <i class="fa fa-plus"></i> {L('更多')}
+									<i class="fa fa-angle-down"></i>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a style="margin-right:0px; padding: 8px !important;" href="{dr_url('admin/member/distributor', array('uid' => $t.uid, 'action' => 'dis'))}"> 
+										<i class="fa fa-edit"></i> {L('查看分销数据')}</a></li>
+									<li><a style="margin-right:0px; padding: 8px !important;" href="{dr_url('admin/member/distributor', array('uid' => $t.uid, 'action' => 'fin'))}"> 
+										<i class="fa fa-edit"></i> {L('查看财务流水')}</a></li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{if $param['total'] > 1}
+<div id="pages"><a>{L('共%s条', $param['total'])}</a>{$_pages}</div>
+{/if}
+
+{if $_GET['action'] == 'dis'}
+	{template "member_disdata.html"}
+{else if $_GET['action'] == 'fin'}
+	{template "member_findata.html"}
+{else}
+{/if}
+
+{template nfooter.html}

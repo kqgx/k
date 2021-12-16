@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS `{tablename}`;
+DROP TABLE IF EXISTS `{tablename}_data_0`;
+DROP TABLE IF EXISTS `{tablename}_cart_1`;
+DROP TABLE IF EXISTS `{tablename}_cart_2`;
+DROP TABLE IF EXISTS `{tablename}_cart_3`;
+DROP TABLE IF EXISTS `{tablename}_cart_4`;
+DROP TABLE IF EXISTS `{tablename}_cart_5`;
+DROP TABLE IF EXISTS `{tablename}_cart_6`;
+DROP TABLE IF EXISTS `{tablename}_cart_7`;
+DROP TABLE IF EXISTS `{tablename}_cart_8`;
+DROP TABLE IF EXISTS `{tablename}_cart_9`;
+DROP TABLE IF EXISTS `{tablename}_cart_0`;
+DROP TABLE IF EXISTS `{tablename}_goods`;
+DROP TABLE IF EXISTS `{tablename}_operate`;
+DROP TABLE IF EXISTS `{tablename}_transfer`;
+DROP TABLE IF EXISTS `{tablename}_buy`;

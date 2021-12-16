@@ -1,0 +1,158 @@
+<div class="wb-container">
+	<div class="page-header">
+		当前位置：<span class="text-primary">table/表格</span>
+	</div>
+	<div class="page-content">
+		<form action="" method="get" class="form-horizontal form-search" role="form">
+			<div class="page-toolbar">
+				<span class="pull-left" style="margin-right:30px;">
+				<a class="btn btn-sm btn-primary" href=""><i class="fa fa-plus"></i> 添加商品</a>
+				<a class="btn btn-sm btn-primary" href=""><i class="fa fa-plus"></i> 快速添加商品</a>
+				<a class="btn btn-sm btn-primary" href=""><i class="fa fa-plus"></i> 导入商品</a>
+				</span>
+				<div class="input-group col-sm-6 pull-right">
+					<input type="text" class="input-sm form-control" name="keyword" value="" placeholder="ID/名称/编号/条码/商户名称"><span class="input-group-btn">
+					<button class="btn btn-primary" type="submit"> 搜索</button>
+					</span>
+				</div>
+			</div>
+		</form>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-table-header">
+					<input type="checkbox">
+					<div class="btn-group">
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle="batch" data-href="" disabled="disabled"><i class="icow icow-xiajia3"></i> 下架</button>
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle="batch-remove" data-confirm="确认要删除吗?" data-href="" disabled="disabled"><i class="icow icow-shanchu1"></i>批量删除</button>
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle="batch-group" id="batchcatesbut" disabled="disabled">批量分类</button>
+					</div>
+				</div>
+				<table class="table table-responsive">
+				<thead class="navbar-inner">
+				<tr>
+					<th style="width:25px;">
+					</th>
+					<th class="text-center">
+						排序
+					</th>
+					<th style="min-width:100px;">
+						标题
+					</th>
+					<th>
+						&nbsp;
+					</th>
+					<th class="sorting">
+						价格
+					</th>
+					<th class="sorting">
+						库存
+					</th>
+					<th class="sorting">
+						销量
+					</th>
+					<th>
+						状态
+					</th>
+					<th>
+						属性
+					</th>
+					<th class="text-center" style="min-width: 150px;">
+						操作
+					</th>
+				</tr>
+				</thead>
+				
+				<tbody>
+				<tr>
+					<td>
+						<input type="checkbox" value="209">
+					</td>
+					<td style="text-align:center;">
+						<a href="javascript:;" data-toggle="ajaxEdit" data-href="">0</a>
+						<i class="icow icow-weibiaoti--" data-toggle="ajaxEdit"></i>
+					</td>
+					<td>
+						<a href="">
+						<img src="https://wx.mutaoinc.cn/attachment/images/5/2018/04/OmqZ0Z2mmxhhYR2R5hXRNMaqxR1xMzAm.jpg" style="width:72px;height:72px;padding:1px;border:1px solid #efefef;margin: 7px 0" onerror="this.src='nopic.png'">
+						</a>
+					</td>
+					<td class="full">
+						<span>
+						<span style="display: block;width: 100%;">
+						<a href="javascript:;" data-toggle="ajaxEdit2" data-edit="textarea" data-href="" style="">
+                            三星 Galaxy S9+（SM-G9650/DS）6GB+128GB 谜夜黑 移动联通电信4G手机 双卡双待                                
+						</a>
+						<span class="text-danger">[手机通讯]</span>
+						</span><i class="icow icow-weibiaoti--" data-toggle="ajaxEdit"></i>
+						</span>
+					</td>
+					<td>
+						¥ <span data-toggle="tooltip" title="" data-original-title="多规格不支持快速修改">6999.00</span>
+					</td>
+					<td>
+						<span data-toggle="tooltip" title="" data-original-title="多规格不支持快速修改">
+                                18                            
+						</span>
+					</td>
+					<td>
+						8
+					</td>
+					<td style="overflow:visible;">
+						<span class="label label-primary" data-toggle="ajaxSwitch" data-confirm="确认是下架？" data-switch-refresh="true" data-switch-value="1" data-switch-value0="" data-switch-value1="">
+                          上架
+						</span>
+					</td>
+					<td class="goods_attribute">
+					</td>
+					<td>
+						<a class="btn btn-op btn-operation" href=""><span data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑">
+						<i class="icow icow-bianji2"></i>
+						</span>
+						</a>
+						<a class="btn btn-op btn-operation" data-toggle="ajaxRemove" href="" data-confirm="确认彻底删除此商品？"><span data-toggle="tooltip" data-placement="top" title="" data-original-title="删除">
+						<i class="icow icow-shanchu1"></i>
+						</span>
+						</a>
+					</td>
+				</tr>
+				</tbody>
+				
+				<tfoot>
+    				<tr>
+    					<td>
+    						<input type="checkbox">
+    					</td>
+    					<td colspan="4">
+    						<div class="btn-group">
+    							<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle="batch-remove" data-confirm="确认要删除吗?" data-href="" disabled="disabled"><i class="icow icow-shanchu1"></i> 批量删除</button>
+    						</div>
+    					</td>
+    					<td colspan="5" style="text-align: right">
+    						<div>
+    							<ul class="pagination pagination-centered">
+    								<li><span class="nobg">共63条记录</span>
+    								</li>
+    							</ul>
+    							<ul class="pagination pagination-centered">
+    								<li class="active"><a href="#">1</a>
+    								</li>
+    								<li><a href="#">2</a>
+    								</li>
+    								<li><a href="#">3</a>
+    								</li>
+    								<li><a href="#">4</a>
+    								</li>
+    								<li><a href="#" class="pager-nav">下一页»</a>
+    								</li>
+    								<li><a href="#" class="pager-nav">尾页</a>
+    								</li>
+    							</ul>
+    						</div>
+    					</td>
+    				</tr>
+				</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

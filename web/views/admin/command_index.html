@@ -1,0 +1,209 @@
+<style>
+.container-command {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -420px;
+    z-index: 999;
+}
+.window-button,
+.window .buttons .buttons-close,
+.window .buttons .buttons-minimize,
+.window .buttons .buttons-maximize {
+    padding: 0;
+    margin: 0;
+    margin-right: 4px;
+    width: 12px;
+    height: 12px;
+    background-color: gainsboro;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    color: rgba(0, 0, 0, 0.5);
+}
+.window {
+    animation: bounceIn 1s ease-in-out;
+    width: 840px;
+}
+.window .handle {
+    height: 22px;
+    background: linear-gradient(0deg, #d8d8d8, #ececec);
+    border-top: 1px solid white;
+    border-bottom: 1px solid #b3b3b3;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: rgba(0, 0, 0, 0.7);
+    font-family: Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 22px;
+    text-align: center;
+}
+.window .buttons {
+    position: absolute;
+    float: left;
+    margin: 0 8px;
+}
+.window .buttons .buttons-close {
+    background-color: #ff6159;
+}
+.window .buttons .buttons-minimize {
+    background-color: #ffbf2f;
+}
+.window .buttons .buttons-maximize {
+    background-color: #25cc3e;
+}
+.window .console {
+    padding: 4px;
+    background-color: black;
+    opacity: 0.8;
+    height: 518px;
+    color: white;
+    font-weight: 200;
+    font-size: 14px;
+    white-space: pre;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow-y: auto;
+}
+.window .console::after {
+    content: "|";
+    animation: blink 2s steps(1) infinite;
+}
+.console .prompt {
+    color: #bde371;
+}
+.console .path {
+    color: #5ed7ff;
+}
+.console .green {
+    color: #5ad803;
+}
+.console .orange {
+    color: #FFB800;
+}
+.console .red {
+    color: #FF5722;
+}
+@keyframes blink {
+    50% {
+        color: transparent;
+    }
+}
+@keyframes bounceIn {
+    0% {
+        transform: translateY(-1000px);
+    }
+    60% {
+        transform: translateY(200px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+</style>
+
+<div class="container-command">
+    <div class="window">
+        <div class="handle">
+            <div class="buttons">
+                <button class="buttons-close"></button>
+                <button class="buttons-minimize"></button>
+                <button class="buttons-maximize"></button>
+            </div>
+            <span class="title"></span>
+        </div>
+        <div class="console"></div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    var title = $(".title");
+    var console = $(".console");
+	var user = "{$member.username}";
+    var path = "~";
+    var command = "";
+    var commands = [{
+        "name": "clear",
+        "function": clearConsole
+    }, {
+        "name": "help",
+        "function": help
+    }];
+
+    function help() {
+        console.append("There is no help... MUAHAHAHAHA. >:D\n");
+    }
+
+    function clearConsole() {
+        console.text("");
+		newLine(true)
+    }
+
+    function processCommand() {
+        var isValid = false;
+        for (var i = 0; i < commands.length; i++) {
+            if (command == commands[i].name) {
+                commands[i].function();
+                isValid = true;
+                break;
+            }
+        }
+
+        if (!isValid) {
+            console.append("Quan: command not found: " + command + "\n");
+        }
+    }
+	
+	function newLine(enter){
+		console.append((enter ? "" : "\n") + user + ":<span class=\"prompt\">~$</span> ");
+	}
+	
+	function send(){
+		if(command=='clear'){
+			clearConsole()
+		} else {
+			
+		}
+	}
+	
+    $(document).on('DOMNodeInserted',function(){
+        $(".console").scrollTop($(".console")[0].scrollHeight);
+    });
+    $(document).keydown(function(e) {
+        if (e.keyCode == 8 && e.target.tagName != 'INPUT' && e.target.tagName != 'TEXTAREA') {
+            e.preventDefault();
+            if (command !== "") {
+                command = command.slice(0, -1);
+                console.html(console.html().slice(0, -1));
+            }
+        }
+    });
+
+    $(document).keypress(function(e) {
+        e = e || window.event;
+        var keyCode = typeof e.which == "number" ? e.which : e.keyCode;
+        if (e.which == 13) {
+			newLine()
+            send(command);  
+			command = "";			
+        } else {
+            var keyString = String.fromCharCode(keyCode);
+            console.append(keyString);
+            command += keyString;
+        }
+    });
+
+    // Set the window title
+    title.text("marc@mbp: ~ (Quan)")
+
+    // Get the date for our fake last-login
+    var date = new Date().toString();
+    date = date.substr(0, date.indexOf("GMT") - 1);
+
+    // Display last-login and promt
+    console.append("Last login: " + date + " on 127.0.0.1");
+    newLine()
+	
+});
+</script>

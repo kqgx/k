@@ -1,0 +1,57 @@
+/* Created by mtdev Chaixiha@mutaoinc.com */
+html, body {
+    overflow: visible
+}
+.page-boxed {
+    background-color: #F9F9F9 !important
+}
+.container {
+    width: 1200px;
+}
+.page-content {
+    width: auto;
+}
+.form-body {
+    background-color: #FFFFFF
+}
+.page-header {
+    overflow: visible;
+}
+.page-header-fixed .page-container {
+    margin-top: 20px
+}
+.page-sidebar-wrapper {
+    float: left;
+    width: 235px;
+}
+.page-content-wrapper {
+    float: right;
+    width: 930px;
+}
+.page-content-wrapper .page-content {
+    margin-left: 0;
+    border-left: 15px solid #f7f7f7;
+}
+.page-content .page-bar {
+    margin-bottom: 20px;
+}
+.fa {
+    margin-right: 0;
+}
+.nav-toggle:hover,.nav-toggle:active,.active .nav-toggle {
+    color: #FFF !important;
+    background-color: #44abf7 !important;
+}
+.page-header.navbar {
+    border: 1px solid #ebebeb;
+    background-color: #FFFFFF
+}
+.page-header.navbar .top-menu .navbar-nav>li.dropdown-language>.dropdown-toggle>.langname, .page-header.navbar .top-menu .navbar-nav>li.dropdown-user>.dropdown-toggle>.username, .page-header.navbar .top-menu .navbar-nav>li.dropdown-user>.dropdown-toggle>i {
+    color: #333333
+}
+.page-header.navbar .top-menu .navbar-nav>li.dropdown .dropdown-toggle:hover, .page-header.navbar .top-menu .navbar-nav>li.dropdown.open .dropdown-toggle {
+    background-color: #F9F9F9;
+}
+.page-header.navbar .top-menu .navbar-nav>li.dropdown .dropdown-toggle .badge.badge-default {
+    background-color: #44abf7;
+}

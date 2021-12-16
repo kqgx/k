@@ -1,0 +1,73 @@
+{php $page = $_GET['page'];}
+<div class="portlet light bordered" id="vue_div">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-yen font-green" style="font-size: 19px;"></i>
+            <span class="caption-subject font-green sbold ">{L('财务流水')}</span>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="form-body">
+            <table class="table mtable table-nomargin table-bordered table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th style="text-align:center">{L('累计收益(元)')}</th>
+                    <th style="text-align:center">{L('本月收益(元)')}</th>
+                    <th style="text-align:center">{L('今日收益(元)')}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center">{$count_data.cumulative_income}</td>
+                        <td style="text-align:center">{$count_data.month_income}</td>
+                        <td style="text-align:center">{$count_data.today_income}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="form-body">
+    <div class="portlet light bordered myfbody">
+        <div class="portlet-title tabbable-line">
+            <ul class="nav nav-tabs" style="float:left;">
+                <li class="{$_GET['tab'] == 0 ? 'active' : ''}">
+                    <a href="#tab_0" data-toggle="tab"> <i class="fa fa-home"></i> {L('全部')} </a>
+                </li>
+            </ul>
+        </div>
+        <div class="portlet-body">
+            <div class="tab-content">
+                <div class="tab-pane {$_GET['tab'] == 0 ? 'active' : ''}" id="tab_0">
+                    <table class="table dr_table">
+                        <thead>
+                        <tr>
+                            <th width="15%">{L('时间')}</th>
+                            <th width="15%">{L('会员')}</th>
+                            <th width="15%">{L('金钱')}</th>
+                            <th width="15%">{L('支付方式')}</th>
+                            <th width="15%">{L('状态')}</th>
+                            <th>{L('备注说明')}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {php ($_GET['tab'] == 0) ? ($_GET['page'] = $page) : ($_GET['page'] = 1);}
+                        {list action=table table=member_paylog uid=$_GET['uid'] order=inputtime page=1 pagesize=5 urlrule=admin.php?c=member&m=distributor&uid=$_GET['uid']&action=$_GET['action']&tab=0&page=[page]}
+                        <tr>
+                            <td>{dr_date($t.inputtime, '', 'red')}</td>
+                            <td><a onclick="dr_dialog_member('{$t.uid}')" href="javascript:;">{php echo dr_member_info($t.uid)['username'];}</a></td>
+                            <td><b>{if $t['value'] >= 0}<font color="#009933">{L('收入%s', abs($t['value']))}</font>{else}<font color="#FF0000">{L('支出%s', abs($t['value']))}</font>{/if}</b></td>
+                            <td>{$t.type}</td>
+                            <td>{if $t.status == 1}<font color="#009933">{L('成功')}</font>{else if $t.status == 0}<font color="#FF0000">{L('等待付款')}</font>{else if $t.status == 2}<font color="#FF0000">{L('失败')}</font>{/if}</td>
+                            <td class="dr_option">{dr_lang_note($t['note'])}</td>
+                        </tr>
+                        {/list}
+                        </tbody>
+                    </table>
+                    <div id="pages"><a href="javascript:void(0);">{L('共%s条', $total)}</a>{$pages}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

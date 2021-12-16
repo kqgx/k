@@ -1,0 +1,35 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2021-06-19 00:19:17 --> 404 Page Not Found: /index
+ERROR - 2021-06-19 00:19:18 --> 404 Page Not Found: admin//index
+ERROR - 2021-06-19 00:19:18 --> 404 Page Not Found: /changepwdfirst
+ERROR - 2021-06-19 00:19:19 --> 404 Page Not Found: /googlecode
+ERROR - 2021-06-19 00:19:19 --> 404 Page Not Found: /index
+ERROR - 2021-06-19 00:19:19 --> 404 Page Not Found: Home/loadmymanager
+ERROR - 2021-06-19 00:19:20 --> 404 Page Not Found: Index/login
+ERROR - 2021-06-19 00:19:22 --> 404 Page Not Found: Home/Bind
+ERROR - 2021-06-19 00:19:25 --> 404 Page Not Found: Home/GetAllGameCategory
+ERROR - 2021-06-19 00:19:25 --> 404 Page Not Found: Home/GetQrCodeInfo
+ERROR - 2021-06-19 00:19:33 --> 404 Page Not Found: Home/Get
+ERROR - 2021-06-19 00:19:34 --> 404 Page Not Found: Home/login
+ERROR - 2021-06-19 00:19:34 --> 404 Page Not Found: Index/loansList
+ERROR - 2021-06-19 00:19:38 --> 404 Page Not Found: Index/getLottery
+ERROR - 2021-06-19 00:19:38 --> 404 Page Not Found: Home/GetInitSource
+ERROR - 2021-06-19 00:19:39 --> 404 Page Not Found: /api
+ERROR - 2021-06-19 00:19:43 --> 404 Page Not Found: /index
+ERROR - 2021-06-19 00:19:43 --> 404 Page Not Found: Index/index
+ERROR - 2021-06-19 00:19:45 --> 404 Page Not Found: Index/Mobile
+ERROR - 2021-06-19 00:19:45 --> 404 Page Not Found: Index/Mobile
+ERROR - 2021-06-19 00:19:47 --> 404 Page Not Found: Index/grailindex
+ERROR - 2021-06-19 00:19:48 --> 404 Page Not Found: Index/api
+ERROR - 2021-06-19 00:19:49 --> 404 Page Not Found: /index
+ERROR - 2021-06-19 00:19:50 --> 404 Page Not Found: Home/main
+ERROR - 2021-06-19 00:19:53 --> 404 Page Not Found: /index
+ERROR - 2021-06-19 18:01:49 --> 404 Page Not Found: admin//index
+ERROR - 2021-06-19 18:02:00 --> 404 Page Not Found: admin//index
+ERROR - 2021-06-19 18:02:01 --> 404 Page Not Found: admin//index
+ERROR - 2021-06-19 18:02:01 --> 404 Page Not Found: admin//index
+ERROR - 2021-06-19 18:02:02 --> 404 Page Not Found: admin//index
+ERROR - 2021-06-19 18:02:23 --> 404 Page Not Found: admin//index
+ERROR - 2021-06-19 18:02:29 --> 404 Page Not Found: admin//index
+ERROR - 2021-06-19 18:02:48 --> 404 Page Not Found: admin//index

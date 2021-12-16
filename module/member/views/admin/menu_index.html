@@ -1,0 +1,73 @@
+{template nheader.html}
+<script type="text/javascript">
+$(function() {
+	var _id = window.location.hash;
+	if (_id && $(_id).length > 0) {
+		var pos = $(_id).offset().top - 100;
+		$("html,body").animate({ scrollTop: pos }, 1000);
+	}
+});
+</script>
+<div class="page-bar">
+	<ul class="page-breadcrumb mylink">
+		{$menu.link}
+	</ul>
+	<ul class="page-breadcrumb myname">
+		{$menu.name}
+	</ul>
+	<div class="page-toolbar">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-hover="dropdown"> {L('操作菜单')}
+				<i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				{loop $menu.quick $t}
+				<li>
+					<a href="{$t.url}">{$t.icon} {$t.name}</a>
+				</li>
+				{/loop}
+				<li class="divider"> </li>
+				<li>
+					<a href="javascript:window.location.reload();">
+						<i class="icon-refresh"></i> {L('刷新页面')}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<h3 class="page-title">
+	<small>{L('您可用对会员菜单进行调整，添加、修改、删除菜单项，<font color=red>重点注意：各菜单的地址不得重复，地址只能是唯一的</font>')}</small>
+</h3>
+
+<form action="" method="post" name="myform" id="myform">
+	<input name="action" id="action" type="hidden" value="order" />
+	<div class="portlet mylistbody">
+		<div class="portlet-body">
+			<div class="table-scrollable">
+				<table class="mytable table table-striped table-bordered table-hover table-checkable dataTable">
+		<thead>
+        <tr>
+			<th width="20"></th>
+			<th width="30" align="center">{L('排序')}</th>
+            <th width="50" align="center">{L('可用')}</th>
+            <th width="400" align="left">{L('名称')}</th>
+            <th width="99" align="center">{L('新窗口打开')}</th>
+			<th align="left">{if $this->ci->is_auth('admin/menu/member/add')}<a class="add" title="{L('添加')}" href="{dr_dialog_url(dr_url('admin/menu/member/add', array('pid'=>0)), 'add')}"></a>{/if}</th>
+        </tr>
+        </thead>
+		<tbody>
+		{$list}
+		<tr class="mtable_bottom">
+			<th ><input class="toggle md-check" name="dr_select" type="checkbox" onClick="dr_selected()" /></th>
+			<td colspan="7" >
+            {if $this->ci->is_auth('admin/menu/member/del')}<button type="button" class="btn red btn-sm" value="" name="button" onClick="$('#action').val('del');return dr_confirm_del_all()"> <i class="fa fa-trash"></i> {L('删除')}</button>&nbsp;{/if}
+			{if $this->ci->is_auth('admin/menu/member/edit')}<button type="button" class="btn green btn-sm" value="" name="button" onclick="$('#action').val('order');return dr_confirm_del_all()" > <i class="fa fa-edit"></i> {L('排序')}</button>&nbsp;<div class="onShow">{L('排序按从小到大排列，最大支持99')}</div>{/if}
+			</td>
+		</tr>
+		</tbody>
+		</table>
+		</div>
+	</div>
+</div>
+</form>
+{template nfooter.html}

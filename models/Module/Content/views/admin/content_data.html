@@ -1,0 +1,111 @@
+<?php 
+    $filter_column = ['baidumap', 'Diy', 'Image', 'File', 'Files', 'Group', 'Hidden', 'Merge', 'Property', 'Ueditor', 'Fees'];
+?>
+<table class="mytable table table-striped table-bordered table-hover table-checkable dataTable">
+
+<thead>
+    <tr>
+        <th></th>
+        <th width="50" style="text-align:center">{L('排序')}</th>
+        {loop $field $t}
+        {if $t.ismain && $t.iscolumn && !in_array($t.fieldtype, $filter_column)}
+        <th width="{$t.columnwidth}" class="{ns_sorting($t.fieldname)}" name="{$t.fieldname}">{$t.name}</th>
+        {/if}
+        {/loop}
+        {if !IS_SHARE}<th width="100" align="center" class="{ns_sorting('catid')}" name="catid">{L('栏目分类')}</th>{/if}
+        <th width="100" align="center" class="{ns_sorting('author')}" name="author">{L('录入作者')}</th>
+        <th width="150" align="center" class="{ns_sorting('updatetime')}" name="updatetime">{L('更新时间')}</th>
+        <th width="100" align="center" class="{ns_sorting('status')}" name="status">{L('状态')}</th>
+        <th>{L('操作')}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {loop $list $t}
+    <tr class="dr_row_hide" id="dr_row_{$t.id}">
+        <td><input name="ids[]" type="checkbox" class="dr_select toggle md-check" value="{$t.id}" /></td>
+        <td style="text-align:center"><input class="input-text displayorder" type="text" name="data[{$t.id}][displayorder]" value="{$t.displayorder}" /></td>
+        {loop $field $f}
+        {if $f.ismain && $f.iscolumn && !in_array($f.fieldtype, $filter_column)}
+        {if $f.fieldname == 'title'}
+        <td><a title="{dr_clearhtml($t.title)}" href="{dr_url(APP_DIR.'/content/edit',array('id'=>$t.id))}">{dr_keyword_highlight(dr_strcut(dr_clearhtml($t.title), 50), $param.keyword)}{if $t.link_id >0}<img align="absmiddle" src="{THEME_PATH}admin/images/link2.png">{/if}</a></td>
+        {else if $f.fieldname == 'thumb'}
+        <td><img src="{dr_thumb($t.thumb, 50)}" align="absmiddle" height="50"></td>
+        {else if $f.fieldtype == 'Image'}
+        <td>
+            {php $images = json_decode($t[$f.fieldname], true);}
+            {loop $images $i}
+            <img src="{dr_thumb($i, 50)}" align="absmiddle" height="50">
+            {/loop}
+        </td>
+        {else}
+        <td>
+            {dr_strcut($t[$f.fieldname], 50)}
+        </td>
+        {/if}
+        {/if}
+        {/loop}
+        
+        {if !IS_SHARE}<td><a title="{dr_cat_value($t['catid'], 'name')}" href="{if $flag}{dr_url(APP_DIR.'/content/index', array('flag'=>$flag,'catid'=>$t.catid))}{else}{dr_url(APP_DIR.'/content/index', array('catid'=>$t.catid))}{/if}">{dr_strcut(dr_cat_value($t['catid'], 'name'), 12)}</a></td>{/if}
+        <td><a href="javascript:;" onclick="dr_dialog_member('{$t.uid}')">{dr_strcut($t.author, 10)}</a></td>
+        <td>{dr_date($t.updatetime, NULL, 'red')}</td>
+        <td><label>{if $t.status == 9}<a class="btn blue btn-xs" href="javascript:dr_status('{$t.id}', '{$t.status}');">{L('正常')}</a>{else}<a class="btn red btn-xs" href="javascript:dr_status({$t.id}, '{$t.status}');">{L('关闭')}</a>{/if}</label></td>
+        <td>
+            {if $this->ci->is_auth(APP_DIR.'/admin/content/edit')}
+            <label>
+                <a href="{dr_url(APP_DIR.'/content/edit',array('id'=>$t.id))}" class="btn btn-xs green onloading">
+                    <i class="fa fa-edit"></i> {L('修改')} </a></label>
+            {/if}
+            {if APP_DIR == 'mall'}
+            <label>
+                <a class="btn btn-xs blue onloading" href="{dr_url('form/data',array('form' => 'need', 'cid' => $t.id))}"> <i class="fa fa-commenting"></i> {L('登记信息')}</a>
+            </label>
+            {/if}
+            {if $app}
+            <label>
+            <div class="btn-group">
+                <button type="button" class="btn btn-success btn-xs dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> <i class="fa fa-cloud"></i> {L('应用')}
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    {loop $app $a}
+                    <li><a class="onloading" href="{$a.url}&cid={$t.id}&catid={$t.catid}&module={APP_DIR}">{$a.name}{if $a.field!='null'} <span class="badge badge-info"> {intval($t[$a.field])} </span> {/if}</a></li>
+                    {/loop}
+                </ul>
+            </div>
+            </label>
+            {/if}
+            {if $extend}
+            <label>
+            <a class="btn btn-xs purple onloading" href="{dr_url(APP_DIR.'/extend/index',array('cid'=>$t.id,'catid'=>$get.catid))}"> <i class="fa fa-list"></i> {L('章节管理')}</a>
+            </label>
+            {/if}
+            {if $ci->get_cache('comment', 'comment-module-'.APP_DIR, 'value', 'use') && APP_DIR != 'mall'}
+            <label>
+            <a class="btn btn-xs blue onloading" href="{dr_url(APP_DIR.'/comment/index',array('cid'=>$t.id))}"> <i class="fa fa-comments"></i> {L('评论(%s)', $t.comments)}</a>
+            </label>
+            {/if}
+        </td>
+    </tr>
+    {/loop}
+    <tr class="mtable_bottom">
+        <th width="20" ><input name="dr_select" class="toggle md-check" id="dr_select" type="checkbox" onClick="dr_selected()" /></th>
+        <td colspan="99" >
+            {if !$get.flag}
+            {if $this->ci->is_auth(APP_DIR.'/admin/content/del')}<label><button type="button" class="btn red btn-sm" name="option" onClick="$('#action').val('del');dr_confirm_set_all('{L('删除之后将无法恢复，您确定要这样操作吗？')}')"> <i class="fa fa-close"></i> {L('删除')}</button></label>{/if}
+            <!-- {if $this->ci->is_auth(APP_DIR.'/admin/content/del')}<label><button type="button" class="btn dark btn-sm" name="option" onClick="$('#action').val('recycle');dr_confirm_set_all('{L('将内容放入回收站，您确定要这样操作吗？')}')"> <i class="fa fa-trash"></i> {L('回收站')}</button></label>{/if} -->
+            {else}
+            {if $this->ci->is_auth(APP_DIR.'/admin/content/edit')}<label><button type="button" class="btn red btn-sm" name="option" onClick="$('#action').val('flag');dr_confirm_set_all('{L('您确定要这样操作吗？')}')"> <i class="fa fa-flag"></i> {L('移出')}</button></label>{/if}
+            {/if}
+            {if $this->ci->is_auth(APP_DIR.'/admin/content/edit')}
+            <label><button type="button" class="btn green btn-sm" name="option" onClick="$('#action').val('order');dr_confirm_set_all('{L('您确定要这样操作吗？')}')"> <i class="fa fa-edit"></i>  {L('排序')}</button></label>
+            <label><button type="button" class="btn blue btn-sm" name="option" onClick="dr_confirm_move();"> <i class="fa fa-share"></i>  {L('移动至')}</button></label>
+            <label>{$select}</label>
+            <label><button type="button" class="btn yellow btn-sm" name="option" onClick="dr_ts()"> <i class="fa fa-send"></i> {L('推送')} </button></label>
+            {/if}
+            {if $this->ci->is_auth('html/index') && (($ci->get_cache('module-'.SITE_ID.'-'.APP_DIR, 'html')) || (IS_SHARE && $param.catid && $ci->get_cache('module-'.SITE_ID.'-share', 'category', $param.catid, 'setting', 'html')))}
+            <label><button type="submit" class="btn green btn-sm" name="option" onClick="$('#action').val('html');"> <i class="fa fa-html5"></i>  {L('生成静态')}</button></label>
+            {/if}
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,176 @@
+<script type="text/javascript">
+$(function() { //防止回车提交表单
+	document.onkeydown = function(e){ 
+		var ev = document.all ? window.event : e;
+		if (ev.keyCode==13) {
+			$("#mark").val("1"); // 标识不能提交表单
+		}
+	}
+	$(".table_form th").last().css('border','none');
+	$(".table_form td").last().css('border','none');
+});
+function dr_form_check() {
+	if ($("#mark").val() == 0) { 
+		return true;
+	} else {
+		return false;
+	}
+}
+</script>
+<script src="/statics/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="/statics/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editorDiv");
+    //设置编辑器样式，对应theme-*.js文件
+    editor.setTheme("ace/theme/twilight");
+    //设置代码语言，对应mode-*.js文件
+    editor.session.setMode("ace/mode/php");
+    //设置打印线是否显示
+    editor.setShowPrintMargin(false);
+    //代码高亮
+    editor.setHighlightActiveLine(true);
+    //设置是否只读
+    editor.setReadOnly(false);
+    //以下部分是设置输入代码提示的，如果不需要可以不用引用ext-language_tools.js
+    ace.require("ace/ext/language_tools");
+    ace.require('ace/snippets/php.js');
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+
+    //监听编辑器内容改变
+    editor.getSession().on("change", function(e) {
+        var getValue = editor.getValue();
+        getValue = getValue.replace('<?php', '');
+        $('.textarea').text($.trim(getValue));
+    });
+
+    function htmlspecialchars(str)
+    {
+        var s = "";
+        if (str.length == 0) return "";
+        for (var i=0; i<str.length; i++)
+        {
+            switch (str.substr(i,1))
+            {
+                case "<": s += "&lt;"; break;
+                case ">": s += "&gt;"; break;
+                case "&": s += "&amp;"; break;
+                // case " ":
+                //     if(str.substr(i + 1, 1) == " "){
+                //         s += " &nbsp;";
+                //         i++;
+                //     } else s += " ";
+                //     break;
+                case "\"": s += "&quot;"; break;
+                //case "\n": s += "<br>"; break;
+                default: s += str.substr(i,1); break;
+            }
+        }
+        return s;
+    }
+
+    function showFull(){
+        var full=document.getElementById("editorDiv");
+        launchIntoFullscreen(full);
+    }
+
+    function delFull() {
+        exitFullscreen();
+    }
+
+    function launchIntoFullscreen(element) {
+        if(element.requestFullscreen){
+            element.requestFullscreen();
+        }
+        else if(element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        }
+        else if(element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+        }
+        else if(element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        }
+    }
+
+    function exitFullscreen() {
+        if(document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if(document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if(document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }
+
+    //初始化ace编辑器数据值
+    function setTrubFunc() {
+        var _class = $("#_class").val();
+        var _function = $("#_function").val();
+        var trubFunc = "<?php\n/**\n * Created by Php.\n * User: {$member['username']}\n * Date: {dr_date(SYS_TIME, 'Y-m-d')}\n * Time: {dr_date(SYS_TIME, 'H:i')}\n */\n";
+        if (_class.length > 0) {
+            trubFunc += "class "+_class+" {\n\tpublic $ci;\n\t/**\n\t *构造函数\n\t */\n\tfunction __construct()\n\t{\n\t\t$this->ci = &get_instance();\n\t}\n";
+            if (_function.length > 0) {
+                trubFunc += "\tfunction "+_function+"($data)\n\t{\n\n\t}\n"
+            }
+            trubFunc += "}";
+        }
+        editor.setValue(trubFunc);
+    }
+</script>
+<style>
+    .ui-dialog-quan{display: block!important;}
+</style>
+<div class="table-list" style="width:600px;">
+    <form action="" method="post" id="myform" name="myform" onsubmit="return dr_form_check()">
+    <input name="mark" id="mark" type="hidden" value="0" />
+    <table width="100%" class="table_form">
+        <tr>
+            <th width="150"><font color="red">*</font>  {L('事件名称')}： </th>
+            <td>
+                <input class="input-text" type="text" name="data[name]" autocomplete="off" value="{$data.name}" style="width:100%;" placeholder="事件名称 例如：home">
+            </td>
+        </tr>
+        <tr>
+            <th width="150"><font color="red">*</font>  {L('事件类名称')}： </th>
+            <td>
+                <input class="input-text" type="text" name="data[class]" autocomplete="off" value="{$data.class}" style="width:100%" placeholder="给事件定义一个类 class" id="_class" onkeyup="setTrubFunc()">
+            </td>
+        </tr>
+    <tr>
+        <th><font color="red">*</font>&nbsp;{L('事件方法名称')}： </th>
+        <td>
+            <input class="input-text" type="text" name="data[func]" autocomplete="off" value="{$data.func}" style="width:100%;" placeholder="给事件绑定义一个方法 function" id="_function" onkeyup="setTrubFunc()">
+        </td>
+    </tr>
+    <tr>
+        <th><font color="red">*</font>&nbsp;{L('事件方法体文件名')}： </th>
+        <td>
+            <input class="input-text" type="text" name="data[filename]" autocomplete="off" value="{$data.filename}" style="width:100%;" placeholder="给事件定义一个文件名 ***.php">
+        </td>
+    </tr>
+    <tr>
+        <th><font color="red">*</font>&nbsp;{L('事件模型类文件')}： </th>
+        <td>
+            <input class="input-text" type="text" name="data[hooksname]" autocomplete="off" value="{$data.hooksname}" style="width:100%;" placeholder="给事件定义一个模型类文件 ***_hooks.php">
+        </td>
+    </tr>
+    <tr>
+        <th><font color="red">*</font>&nbsp;{L('事件注释说明')}： </th>
+        <td>
+            <input class="input-text" type="text" name="data[descript]" autocomplete="off" value="{$data.descript}" style="width:100%;" placeholder="事件注释说明">
+        </td>
+    </tr>
+    <tr>
+        <th><font color="red">*</font>&nbsp;{L('事件模型类方法')}： </th>
+        <td>
+            <div class="input-textarea" id = "editorDiv" style="width:100%;padding:10px;height:100px;">{$data.trubFunc}</div>
+            <textarea class = "textarea" name="data[trubFunc]" style="display: none">{$data.trubFunc}</textarea>
+        </td>
+    </tr>
+    </table>
+    </form>
+</div>

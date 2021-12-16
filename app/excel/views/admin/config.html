@@ -1,0 +1,74 @@
+{template nheader.html}
+
+
+<form class="form-horizontal" action="" method="post" id="myform" name="myform">
+    <div class="page-bar">
+        <ul class="page-breadcrumb mylink">
+            {$menu2.link}
+        </ul>
+        <ul class="page-breadcrumb myname">
+            {$menu2.name}
+        </ul>
+        <div class="page-toolbar">
+            <div class="btn-group pull-right">
+                <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-hover="dropdown"> {L('操作菜单')}
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    {loop $menu2.quick $t}
+                    <li>
+                        <a href="{$t.url}">{$t.icon} {$t.name}</a>
+                    </li>
+                    {/loop}
+                    <li class="divider"> </li>
+                    <li>
+                        <a href="javascript:window.location.reload();">
+                            <i class="icon-refresh"></i> {L('刷新页面')}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <h3 class="page-title">
+        <small></small>
+    </h3>
+    <div class="portlet light bordered ">
+
+        <div class="portlet-title">
+            <div class="caption">
+                <span class="caption-subject font-green sbold uppercase">{L('选择导出表')}</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+
+            <div class="row">
+                <div class="portlet-body form">
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">选择表: </label>
+                        <div class="col-md-9">
+                            <label>
+                                <select name="table" class="form-control">
+                                    {loop $tableinfo $t}
+                                    <option value="{$t.name}">{$t.name} ({php echo $t.note ? $t.note : $t.name})</option>
+                                    {/loop}
+                                    </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"></label>
+                        <div class="col-md-9">
+                            <span class="help-block"><button type="submit" class="btn green"> <i class="fa fa-save"></i> {L('下一步')}</button></span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+{template nfooter.html}

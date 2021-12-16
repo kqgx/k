@@ -1,0 +1,39 @@
+{loop $list $t}
+{php $member=dr_member_info($t.uid);}
+
+
+<!-- TIMELINE ITEM -->
+<div class="timeline-item">
+	<div class="timeline-badge">
+		<a href="{dr_member_url('pms/home/read', array('uid' => $t.msgtoid ))}">
+			<img class="timeline-badge-userpic" src="{dr_avatar($t.msgtoid)}">
+			<input type="checkbox" value="{$t.plid}" class="dr_select toggle md-check" style="{if IS_PC}left:33px;{else}left:21px;{/if};position: relative;" name="ids[]">
+		</a>
+
+	</div>
+	<div class="timeline-body">
+		<div class="timeline-body-arrow"> </div>
+		<div class="timeline-body-head">
+			<div class="timeline-body-head-caption">
+
+				{if $t.lastauthor==$member.username}
+				<a href="{dr_space_url($t.authorid)}" target="_blank" class="timeline-body-title font-blue-madison">我</a> 对 <b>{$t.tousername}</b> 说 :
+				{else}
+				<a href="{dr_space_url($t.authorid)}" class="timeline-body-title font-blue-madison" target="_blank">{$t.tousername}</a> 对 <b>我</b> 说 :
+				{/if}
+
+				<span class="timeline-body-time font-grey-cascade">{dr_fdate($t.lastdateline)}</span>
+			</div>
+			<div class="timeline-body-head-actions">
+
+			</div>
+		</div>
+		<div class="timeline-body-content">
+            <span class="font-grey-cascade">{$t.lastsummary}</span>
+			<p class="font-blue-madison" style="margin-top: 5px">共{$t.pmnum}条</p>
+		</div>
+	</div>
+</div>
+<!-- END TIMELINE ITEM -->
+
+{/loop}

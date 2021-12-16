@@ -1,0 +1,57 @@
+<?php
+
+return array(
+
+    'Admin' => 'Admin',
+    'Role' => 'Admin/Role',
+    'Root' => 'Admin/Root',
+    'Auth' => 'Admin/Auth',
+    'Application' => 'Application',
+
+    'Member' => 'Member',
+    'Group' => 'Member/Group',
+    'Level' => 'Member/Level',
+    'Login' => 'Member/Login',
+    'Notice' => 'Member/Notice',
+    'Oauth' => 'Member/Oauth',
+    'Register' => 'Member/Register',
+    'Score' => 'Member/Score',
+
+    'Module' => 'Module',
+    'Category' => 'Module/Category',
+    'Content' => 'Module/Content',
+    'Buy' => 'Module/Buy',
+    'Comment' => 'Module/Comment',
+    'Draft' => 'Module/Draft',
+    'Favorite' => 'Module/Favorite',
+    'Flag' => 'Module/Flag',
+    'History' => 'Module/History',
+    'Hits' => 'Module/Hits',
+    'Html' => 'Module/Html',
+    'Order' => 'Module/Order',
+    'Search' => 'Module/Search',
+    'Tag' => 'Module/Tag',
+
+    'System' => 'System',
+    'Attachment' => 'System/Attachment',
+    'Cache' => 'System/Cache',
+    'Cron' => 'System/Cron',
+    'Email' => 'System/Email',
+    'Field' => 'System/Field',
+    'Model' => 'System/Model',
+    'Pay' => 'System/Pay',
+    'Wechat' => 'System/Wechat',
+    'Events' => 'System/Eve',
+    'Sysvar' => 'System/Var',
+    'Remote' => 'System/Remote',
+
+    'Site' => 'Site',
+    'Block' => 'Site/Block',
+    'Form' => 'Site/Form',
+    'Page' => 'Site/Page',
+    'Navigator' => 'Site/Navigator',
+    'Urlrule' => 'Site/Urlrule',
+    'Linkage' => 'Site/Linkage',
+    'Menu' => 'Site/Menu',
+    'Tag' => 'Site/Tag'
+);
