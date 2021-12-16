@@ -144,7 +144,7 @@
                             </div>
                             {/if}
                             {else}
-                            <a href="javascript:;" onclick="dr_order_shipping({$order.id})" class="btn green btn-xs"> <i class="fa fa-truck"></i> {L('立即发货')}</a>
+                            <a href="javascript:;" onclick="dr_order_shipping('{$order.id}')" class="btn green btn-xs"> <i class="fa fa-truck"></i> {L('立即发货')}</a>
                             {/if}
                         </div>
                     </div>
@@ -179,7 +179,7 @@
                 {loop $order.goods $t}
                 <tr>
                     <td>
-                        <img src="{dr_thumb($t.thumb, 50, 50)}" style="cursor:pointer; width:50px;" onclick="dr_show_file_info({$t.thumb})">
+                        <img src="{dr_thumb($t.thumb, 50, 50)}" style="cursor:pointer; width:50px;" onclick="dr_show_file_info('{$t.thumb}')">
                     </td>
                     <td>{$t.title}</td>
                     <td>{$t.specification}</td>
