@@ -10,6 +10,8 @@ class Events extends M_Controller
         $this->hooks_path = FCPATH.'hooks/';
         $this->eve_path = CONFPATH.'eve/';
         $this->config_path = CONFPATH;
+        
+        
         if(!is_dir($this->hooks_path)) {
             mkdir($this->hooks_path,'0777',true);
         }
