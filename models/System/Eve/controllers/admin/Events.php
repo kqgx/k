@@ -246,10 +246,10 @@ class Events extends M_Controller
         {
             $this->makeEve($postData['hooksname'],$filepath = 'eve');
             $phpCode = <<<INFO
-            <?php
+<?php
 
-            defined('BASEPATH') OR exit('No direct script access allowed');
-            INFO;
+defined('BASEPATH') OR exit('No direct script access allowed');
+INFO;
             file_put_contents($file, $phpCode);
             foreach ($data as $key => $val) {
                 $hook = "$".'hook';
@@ -281,18 +281,18 @@ class Events extends M_Controller
         $file = $this->get_file('hooks','config');
         file_put_contents($file, '');
         $phpCode = <<<INFO
-            <?php
+<?php
 
-            /**
-             * 钩子定义配置
-             */
-            defined('BASEPATH') OR exit('No direct script access allowed');
+/**
+ * 钩子定义配置
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-            // 加载当前模块的钩子配置文件
-            if (is_file(APPPATH.'config/my_hooks.php')) {
-                require_once APPPATH.'config/my_hooks.php';
-            }
-            INFO;
+// 加载当前模块的钩子配置文件
+if (is_file(APPPATH.'config/my_hooks.php')) {
+    require_once APPPATH.'config/my_hooks.php';
+}
+INFO;
         file_put_contents($file, $phpCode);//写入
         if($data)
         {
@@ -300,11 +300,11 @@ class Events extends M_Controller
             {
                 $code = <<<INFO
 
-                
-                if (is_file(CONFPATH.'eve/{$val['hooksname']}_hooks.php')) {
-                    require_once CONFPATH.'eve/{$val['hooksname']}_hooks.php';
-                }
-                INFO;
+
+if (is_file(CONFPATH.'eve/{$val['hooksname']}_hooks.php')) {
+    require_once CONFPATH.'eve/{$val['hooksname']}_hooks.php';
+}
+INFO;
                 file_put_contents($file, $code, FILE_APPEND);
             }
         }
