@@ -1,0 +1,114 @@
+<?php if ($fn_include = $this->_include("nheader.html")) include($fn_include); ?>
+<script type="text/javascript">
+$(function() {
+    $(".select-cat").click(function(){
+        var action = $(this).attr("action");
+        var childs = $(this).attr("childs");
+        var catid = $(this).attr("catid");
+        var catids= new Array(); //定义一数组
+        catids = childs.split(","); //字符分割
+        if (action == 'close') {
+            $.cookie('dr_<?php echo SITE_ID; ?>_<?php echo $this->ci->router->class; ?>_'+catid, null,{path:"/",expires: -1});
+            $(this).attr("action", "open");
+            $(this).html("[-]");
+            for (i=0;i<catids.length ;i++ ) {
+                if (catids[i] != catid) {
+                    $(".dr_catid_"+catids[i]).show();
+                }
+            }
+        } else {
+            // 关闭状态存储cookie
+            $.cookie('dr_<?php echo SITE_ID; ?>_<?php echo $this->ci->router->class; ?>_'+catid, 1);
+            $(this).attr("action", "close");
+            $(this).html("[+]");
+            for (i=0;i<catids.length ;i++ ) {
+                if (catids[i] != catid) {
+                    $(".dr_catid_"+catids[i]).hide();
+                }
+            }
+        }
+    });
+    $(".select-cat").each(function(){
+        var childs = $(this).attr("childs");
+        var catid = $(this).attr("catid");
+        var cache = $.cookie('dr_<?php echo SITE_ID; ?>_<?php echo $this->ci->router->class; ?>_'+catid);
+        if (cache) {
+            $(this).attr("action", "close");
+            $(this).html("[+]");
+            var catids= new Array(); //定义一数组
+            catids = childs.split(","); //字符分割
+            for (i=0;i<catids.length ;i++ ) {
+                if (catids[i] != catid) {
+                    $(".dr_catid_"+catids[i]).hide();
+                }
+            }
+        }
+    });
+});
+</script>
+<div class="page-bar">
+    <ul class="page-breadcrumb mylink">
+        <?php echo $menu['link']; ?>
+    </ul>
+    <ul class="page-breadcrumb myname">
+        <?php echo $menu['name']; ?>
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-hover="dropdown"> <?php echo L('操作菜单'); ?>
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <?php if (is_array($menu['quick'])) { $count=count($menu['quick']);foreach ($menu['quick'] as $t) { ?>
+                <li>
+                    <a href="<?php echo $t['url']; ?>"><?php echo $t['icon'];  echo $t['name']; ?></a>
+                </li>
+                <?php } } ?>
+                <li class="divider"> </li>
+                <li>
+                    <a href="javascript:window.location.reload();">
+                        <i class="icon-refresh"></i> <?php echo L('刷新页面'); ?></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<h3 class="page-title">
+    <small><?php echo L('导航是给用户提供浏览方向及分类指引的重要功能，例如首页头部导航、底部链接信息、侧边链接、顶端链接、友情链接等，根据实际情况来调用'); ?></small>
+</h3>
+<form action="" method="post" name="myform" id="myform">
+    <input name="action" id="action" type="hidden" value="order" />
+    <div class="portlet mylistbody">
+        <div class="portlet-body">
+            <div class="table-scrollable">
+
+                <table class="mytable table table-striped table-bordered table-hover table-checkable dataTable">
+
+		<thead>
+        <tr>
+			<th width="20" align="right"></th>
+			<th width="30" align="center"><?php echo L('排序'); ?></th>
+			<th width="50" align="center">Id</th>
+            <th align="left"><?php echo L('名称'); ?></th>
+            <th align="center" width="80"><?php echo L('类型'); ?></th>
+            <!-- <th style='text-align:center' width="99"><?php echo L('新窗口打开'); ?></th>
+            <th style='text-align:center' width="99"><?php echo L('是否显示'); ?></th> -->
+			<th align="left" class="dr_option"><?php if ($this->ci->is_auth('admin/navigator/add')) { ?><a title="<?php echo L('添加'); ?>" href="<?php echo dr_url('navigator/add', array('type' => $type)); ?>"> <i class="fa fa-plus"></i> <?php echo L('添加');  } ?></th>
+        </tr>
+        </thead>
+		<tbody>
+		<?php echo $list; ?>
+        <tr class="mtable_bottom">
+			<th align="right"><input id="dr_select" name="dr_select" class="toggle md-check" type="checkbox" onClick="dr_selected()" /></th>
+			<td colspan="8" align="left">
+            <?php if ($this->ci->is_auth('admin/navigator/del')) { ?><button type="button" class="btn red btn-sm" value="" name="button" onClick="$('#action').val('del');return dr_confirm_set_all('<?php echo L('您确定要这样操作吗？'); ?>')"> <i class="fa fa-trash"></i> <?php echo L('删除'); ?></button>&nbsp;<?php }  if ($this->ci->is_auth('admin/navigator/edit')) { ?><button type="button" class="btn green btn-sm" name="button" onclick="$('#action').val('order');return dr_confirm_set_all('<?php echo L('您确定要这样操作吗？'); ?>')" > <i class="fa fa-edit"></i> <?php echo L('排序'); ?></button>
+                &nbsp;<div class="onShow"><?php echo L('排序按从小到大排列，最大支持99'); ?></div><?php } ?>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+	    </div>
+	</div>
+</div>
+</form>
+<?php if ($fn_include = $this->_include("nfooter.html")) include($fn_include); ?>

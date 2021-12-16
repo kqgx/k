@@ -1,0 +1,49 @@
+<div class="wb-panel">
+	<div class="panel-group" id="panel-accordion">
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#panel-accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseTwo">
+				<h4 class="panel-title">
+				<i class="icow icow-gonggao"></i><a>系统消息</a><span></span>
+				</h4>
+			</div>
+			<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+				<ul class="panel-body">
+				    <?php if ($notice) { ?>
+					<li class="panel-list">
+					<a class="panel-list-text" href="#">系统消息 <span class="pull-right text-warning">(0)</span></a>
+					</li>
+				    <?php } else { ?>
+					<li class="panel-list small">
+					<div class="panel-list-text text-center">
+						暂无消息提醒
+					</div>
+					</li>
+					<?php } ?>
+				</ul>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#panel-accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+				<h4 class="panel-title">
+				<i class="icow icow-gonggao"></i><a>审核消息</a><span></span>
+				</h4>
+			</div>
+			<div id="collapseTwo" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingTwo">
+				<ul class="panel-body">
+				    <?php if ($notice) { ?>
+					<li class="panel-list">
+					<a class="panel-list-text" href="#">审核消息 <span class="pull-right text-warning">(0)</span></a>
+					</li>
+				    <?php } else { ?>
+					<li class="panel-list small">
+					<div class="panel-list-text text-center">
+						暂无消息提醒
+					</div>
+					</li>
+					<?php } ?>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="wb-panel-fold"><i class="icow icow-info"></i> 消息提醒</div>

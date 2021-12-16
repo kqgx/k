@@ -49,6 +49,6 @@ class Attachment extends M_Controller {
     // 删除附件
     public function delete() {
         $id = (int)$this->input->post('id');
-        $this->models('system/attachment')->delete($this->uid, '', $id) ? $this->msg(1, L('操作成功，正在刷新...'))) :  exit(dr_json(0, 'Error');
+        $this->models('system/attachment')->delete($this->uid, '', $id) ? $this->msg(1, L('操作成功，正在刷新...')) : exit(dr_json(0, 'Error'));
     }
 }
