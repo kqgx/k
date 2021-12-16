@@ -9,3 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 if (is_file(APPPATH.'config/my_hooks.php')) {
     require_once APPPATH.'config/my_hooks.php';
 }
+
+if (is_file(CONFPATH.'eve/a_hooks.php')) {
+    require_once CONFPATH.'eve/a_hooks.php';
+}

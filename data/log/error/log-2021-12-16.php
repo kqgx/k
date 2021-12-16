@@ -74,3 +74,10 @@ ERROR - 2021-12-16 11:57:59 --> Severity: Warning --> count(): Parameter must be
 ERROR - 2021-12-16 11:57:59 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable D:\phpstudy_pro\WWW\k\web\libraries\Template\Template.php 1833
 ERROR - 2021-12-16 11:57:59 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable D:\phpstudy_pro\WWW\k\data\views\faab9cd79aa8b86beddb388bf043db99 101
 ERROR - 2021-12-16 11:58:47 --> 404 Page Not Found: admin//log
+ERROR - 2021-12-16 13:46:23 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable D:\phpstudy_pro\WWW\k\web\libraries\Template\Template.php 1833
+ERROR - 2021-12-16 13:46:23 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable D:\phpstudy_pro\WWW\k\data\views\faab9cd79aa8b86beddb388bf043db99 36
+ERROR - 2021-12-16 13:46:23 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable D:\phpstudy_pro\WWW\k\web\libraries\Template\Template.php 1833
+ERROR - 2021-12-16 13:46:23 --> Severity: Warning --> count(): Parameter must be an array or an object that implements Countable D:\phpstudy_pro\WWW\k\data\views\faab9cd79aa8b86beddb388bf043db99 101
+ERROR - 2021-12-16 13:50:31 --> Severity: Warning --> touch(): Unable to create file D:\phpstudy_pro\WWW\k\public/../web/config/eve/a_hooks.php because No such file or directory D:\phpstudy_pro\WWW\k\models\System\Eve\controllers\admin\Events.php 184
+ERROR - 2021-12-16 13:50:31 --> Severity: Warning --> file_put_contents(D:\phpstudy_pro\WWW\k\public/../web/config/eve/a_hooks.php): failed to open stream: No such file or directory D:\phpstudy_pro\WWW\k\models\System\Eve\controllers\admin\Events.php 253
+ERROR - 2021-12-16 13:50:31 --> Severity: Warning --> file_put_contents(D:\phpstudy_pro\WWW\k\public/../web/config/eve/a_hooks.php): failed to open stream: No such file or directory D:\phpstudy_pro\WWW\k\models\System\Eve\controllers\admin\Events.php 266
