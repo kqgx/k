@@ -40,9 +40,6 @@ class Home extends M_Controller {
 	
 	public function test()
 	{
-		echo $this->hooks->call_hook(
-            'msg',
-            []
-        );
+		$this->hooks->call_hook('a', [1,2,3,4,5]);
 	}
 }

@@ -1,16 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: zhangjiechun
- * Date: 2019/5/23
- * Time: 15:30
- */
-
 class Events extends M_Controller
 {
+    private $hooks_path;
+    private $eve_path;
+    private $config_path;
+
     public function __construct()
     {
         parent::__construct();
+        $this->hooks_path = FCPATH.'hooks/';
+        $this->eve_path = CONFPATH.'eve/';
+        $this->config_path = CONFPATH;
+        if(!is_dir($this->hooks_path)) {
+            mkdir($this->hooks_path,'0777',true);
+        }
+        if(!is_dir($this->eve_path)) {
+            mkdir($this->eve_path,'0777',true);
+        }
+        if(!is_dir($this->config_path)) {
+            mkdir($this->config_path,'0777',true);
+        }
         $this->template->assign('menu', $this->get_menu_v3(array(
             L('事件') => array('admin/events/index', 'rocket'),
             L('添加') => array('admin/events/add_js', 'plus'),
@@ -201,13 +210,13 @@ class Events extends M_Controller
         switch ($filepath)
         {
             case 'hooks':
-                $file = FCPATH.'hooks/'.$filename.'.php';
+                $file = $this->hooks_path.$filename.'.php';
                 break;
             case 'eve':
-                $file = CONFPATH.'eve/'.$filename.'_hooks.php';
+                $file = $this->eve_path.$filename.'_hooks.php';
                 break;
             case 'config':
-                $file = CONFPATH.$filename.'.php';
+                $file = $this->config_path.$filename.'.php';
                 break;
         }
         return $file;
