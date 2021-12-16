@@ -32,8 +32,8 @@
     <h3 class="page-title">
         <small>
             <label>{L('订单号')}：<a href="javascript:;" class="btn green btn-xs">{$order.sn}</a></label>
-            <!-- <label>{str_replace(array('<p>', '</p>'), array('<label>', '</label>'), dr_order_member_option($order.sell_uid, $order))}</label> -->
-            <!-- <label><a target="_blank" href="{dr_url('order/home/print_info', array('id' => $order.id))}" class="btn blue btn-xs"><i class="fa fa-print"></i> {L('打印订单')}</a></label> -->
+            <label>{str_replace(array('<p>', '</p>'), array('<label>', '</label>'), dr_order_member_option($order.sell_uid, $order))}</label>
+            <label><a target="_blank" href="{dr_url('order/home/print_info', array('id' => $order.id))}" class="btn blue btn-xs"><i class="fa fa-print"></i> {L('打印订单')}</a></label>
         </small>
     </h3>
 
@@ -91,7 +91,7 @@
         </div>
     </div>
 
-    <!-- {if $order.buy_step<2 && $order.shipping_name && $order.shipping_phone}
+    {if $order.buy_step<2 && $order.shipping_name && $order.shipping_phone}
     <div class="portlet light bordered ">
         <div class="portlet-title">
             <div class="caption">
@@ -153,7 +153,7 @@
 
         </div>
     </div>
-    {/if} -->
+    {/if}
 
     <div class="portlet light bordered ">
         <div class="portlet-title">
@@ -192,9 +192,9 @@
 
                 </tbody>
             </table>
-            <!-- <div class="row" style="margin-top: 10px;">
+            <div class="row" style="margin-top: 10px;">
                 <div class="col-md-12 ">{L('买家备注')}：{$order.buy_note}</div>
-            </div> -->
+            </div>
         </div>
     </div>
 
@@ -238,9 +238,9 @@
                 </tr>
                 </tbody>
             </table>
-            <!-- <div class="row" style="margin-top: 10px;">
+            <div class="row" style="margin-top: 10px;">
                 <div class="col-md-12 ">{L('买家备注')}：{$order.buy_note}</div>
-            </div> -->
+            </div>
         </div>
     </div>
 
@@ -251,9 +251,9 @@
             </div>
         </div>
         <div class="portlet-body">
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col-md-12 ">{L('卖家备注')}：{$order.sell_note}</div>
-            </div> -->
+            </div>
             <table class="table">
                 <thead>
                 <tr>

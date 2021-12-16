@@ -68,26 +68,26 @@ function dr_order_status($order) {
 	}
 
     // 物流状态
-	// switch($order['shipping_status']) {
-	// 	case 0:
-	// 		$status[2] = L('未发货');
-	// 		break;
-	// 	case 1:
-	// 		$status[2] = L('已退货');
-	// 		break;
-	// 	case 2:
-	// 		$status[2] = L('退货中');
-	// 		break;
-	// 	case 3:
-	// 		$status[2] = L('已发货');
-	// 		break;
-	// 	case 4:
-	// 		$status[2] = L('退货失败');
-	// 		break;
-	// 	case 5:
-	// 		$status[2] = L('已收货');
-	// 		break;
-	// }
+	switch($order['shipping_status']) {
+		case 0:
+			$status[2] = L('未发货');
+			break;
+		case 1:
+			$status[2] = L('已退货');
+			break;
+		case 2:
+			$status[2] = L('退货中');
+			break;
+		case 3:
+			$status[2] = L('已发货');
+			break;
+		case 4:
+			$status[2] = L('退货失败');
+			break;
+		case 5:
+			$status[2] = L('已收货');
+			break;
+	}
 
     // 根据订单购买流程
     if (intval($order['buy_step']) == 2) {
