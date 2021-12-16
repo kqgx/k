@@ -4,7 +4,6 @@ class Events extends M_Controller
     private $hooks_path;
     private $eve_path;
     private $config_path;
-
     public function __construct()
     {
         parent::__construct();
