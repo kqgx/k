@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{SITE_NAME}</title>
+	<title><?php echo SITE_NAME; ?></title>
 	<link href="http://explorer.mutaoinc.net/static/images/common/favicon.ico" rel="shortcut icon">
 	<link rel="stylesheet" href="/statics/imtcms/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/statics/imtcms/css/font-awesome.min.css">
@@ -16,9 +16,9 @@
 	<!--兼容老版本-->
 	<script type="text/javascript">
 		var dr_index = 1;
-		var siteurl = "{SITE_PATH}{SELF}";
-		var memberpath = "{MEMBER_PATH}";
-		var sys_theme = "{THEME_PATH}admin/";
+		var siteurl = "<?php echo SITE_PATH;  echo SELF; ?>";
+		var memberpath = "<?php echo MEMBER_PATH; ?>";
+		var sys_theme = "<?php echo THEME_PATH; ?>admin/";
 	</script>
 	<link rel="stylesheet" href="/statics/js/ui-dialog.css">
 	<script type="text/javascript" src="/statics/js/dialog-plus.js"></script>
@@ -41,57 +41,44 @@
 	<!-- 一级导航 -->
 	<div class="wb-nav ">
 		<div class="imtcms-logo" data-toggle="previewVideo">
-			<img src="{dr_get_file(dr_block('admin_avatar'))}">
+			<img src="<?php echo dr_get_file(dr_block('admin_avatar')); ?>">
 		</div>
 		<p class="wb-nav-fold">
 			<i class="icow icow-zhedie"></i>
 		</p>
 		<ul>
-			{php $key_a=1;}
-			{loop $menus $a}
-			{if $a.top.name!="开发" || $member.adminid==1}
-			<li class="nav-go{if $key_a==1} active{/if}" data-nav="{$a.top.id}">
-				<a href="javascript:void(0);"><i class="{$a.top.icon}"></i> <span
-						class="wb-nav-title">{$a.top.name}</span></a>
-				<span class="wb-nav-tip">{$a.top.name}</span>
+			<?php $key_a=1;  if (is_array($menus)) { $count=count($menus);foreach ($menus as $a) {  if ($a['top']['name']!="开发" || $member['adminid']==1) { ?>
+			<li class="nav-go<?php if ($key_a==1) { ?> active<?php } ?>" data-nav="<?php echo $a['top']['id']; ?>">
+				<a href="javascript:void(0);"><i class="<?php echo $a['top']['icon']; ?>"></i> <span
+						class="wb-nav-title"><?php echo $a['top']['name']; ?></span></a>
+				<span class="wb-nav-tip"><?php echo $a['top']['name']; ?></span>
 			</li>
-			{/if}
-			{php $key_a++;}
-			{/loop}
+			<?php }  $key_a++;  } } ?>
 		</ul>
 	</div>
 	<!-- 二级导航 -->
 	<div class="wb-subnav">
-		{php $key_b=1;}
-		{loop $menus $a}
-		{if $a.top.name!="开发" || $member.adminid==1}
-		{php $key_c=1;}
-		{loop $a.data $b}
-		<div {if $key_b==1}style="display: block" {/if} class="nav-item nav-item-{$a.top.id}">
-			{if $key_c==1}
+		<?php $key_b=1;  if (is_array($menus)) { $count=count($menus);foreach ($menus as $a) {  if ($a['top']['name']!="开发" || $member['adminid']==1) {  $key_c=1;  if (is_array($a['data'])) { $count=count($a['data']);foreach ($a['data'] as $b) { ?>
+		<div <?php if ($key_b==1) { ?>style="display: block" <?php } ?> class="nav-item nav-item-<?php echo $a['top']['id']; ?>">
+			<?php if ($key_c==1) { ?>
 			<div class="subnav-scene">
-				{$a.top.name}
+				<?php echo $a['top']['name']; ?>
 			</div>
-			{/if}
-			<div class='menu-header{if $key_c==1} active{/if}'>
-				<div class="menu-icon fa {if $key_c==1} fa-caret-down{else} fa-caret-right{/if}">
+			<?php } ?>
+			<div class='menu-header<?php if ($key_c==1) { ?> active<?php } ?>'>
+				<div class="menu-icon fa <?php if ($key_c==1) { ?> fa-caret-down<?php } else { ?> fa-caret-right<?php } ?>">
 				</div>
-				{$b.left.name}
+				<?php echo $b['left']['name']; ?>
 			</div>
-			<ul {if $key_c==1}style="display: block" {/if}> {loop $b.left.link $c} {if $c.uri=='logout' } <li
-				class="iframe-go"><a href="?c=login&m=logout"><i class="{$c.icon}"></i> {$c.name}</a></li>
-				{else}
-				<li class="iframe-go"><a href="#{$c.uri}"><i class="{$c.icon}"></i> {$c.name}</a></li>
-				{/if}
-				{/loop}
+			<ul <?php if ($key_c==1) { ?>style="display: block" <?php } ?>> <?php if (is_array($b['left']['link'])) { $count=count($b['left']['link']);foreach ($b['left']['link'] as $c) {  if ($c['uri']=='logout') { ?> <li
+				class="iframe-go"><a href="?c=login&m=logout"><i class="<?php echo $c['icon']; ?>"></i> <?php echo $c['name']; ?></a></li>
+				<?php } else { ?>
+				<li class="iframe-go"><a href="#<?php echo $c['uri']; ?>"><i class="<?php echo $c['icon']; ?>"></i> <?php echo $c['name']; ?></a></li>
+				<?php }  } } ?>
 			</ul>
 			<div class="wb-subnav-fold icow"></div>
 		</div>
-		{php $key_c++;}
-		{php $key_b++;}
-		{/loop}
-		{/if}
-		{/loop}
+		<?php $key_c++;  $key_b++;  } }  }  } } ?>
 	</div>
 	<div class="wb-container right-panel">
 		<iframe id="iframe" src=""></iframe>
@@ -108,8 +95,8 @@
 			</div>
 		</div>
 	</div>
-	<!-- {template "command_index.html"} -->
-	{template "common_right.html"}
+	<!-- <?php if ($fn_include = $this->_include("command_index.html")) include($fn_include); ?> -->
+	<?php if ($fn_include = $this->_include("common_right.html")) include($fn_include); ?>
 	<script language='javascript'>
 		$("#iframe").height($('.wb-nav ').height());
 

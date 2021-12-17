@@ -60,9 +60,9 @@ class Captcha {
         }
 
         //设置背景色
-        //$background = imagecolorallocate($this->img, hexdec(substr($this->background, 1, 2)), hexdec(substr($this->background, 3, 2)), hexdec(substr($this->background, 5, 2)));
+        $background = imagecolorallocate($this->img, hexdec(substr($this->background, 1, 2)), hexdec(substr($this->background, 3, 2)), hexdec(substr($this->background, 5, 2)));
         //画一个柜形，设置背景颜色。
-        //imagefilledrectangle($this->img, 0, $this->height, $this->width, 0, $background);
+        imagefilledrectangle($this->img, 0, $this->height, $this->width, 0, $background);
 
         $color=imagecolorallocate($this->img,255,255,255);
         imagecolortransparent($this->img,$color);

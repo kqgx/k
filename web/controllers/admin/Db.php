@@ -32,8 +32,9 @@ class Db extends M_Controller {
 			}
 		}
 		
-		$menu = array();
-		$menu[L('数据库')] = array('admin/db/index', 'database');
+		$menu = array(
+            L('数据库') => array('admin/db/index', 'database'),
+        );
 
 		$this->template->assign(array(
 			'menu' => $this->get_menu_v3($menu),
@@ -88,7 +89,7 @@ class Db extends M_Controller {
 
         $this->template->assign(array(
             'menu' => $this->get_menu_v3(array(
-                L('执行SQL') => array('admin/db/sql', 'database')
+                L('执行SQL') => array('admin/db/sql', 'database'),
             )),
             'id' => $id,
             'sql' => $sql,

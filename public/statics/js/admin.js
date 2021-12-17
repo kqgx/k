@@ -427,12 +427,12 @@ function dr_confirm_del_all() {
 				url: _url,
 				data: _data,
 				success: function(res) {
-					if (res.status == 1) {
+					if (res.code == 1) {
 						d.close().remove();
-						dr_tips(res.msg, 2, 1);
+						dr_tips(res.msg, 3, 1);
 						setTimeout("window.location.reload(true)", 2000)
 					} else {
-						dr_tips(res.msg, 2, 2);
+						dr_tips(res.msg, 2, 3);
 						top.$(".page-loading").remove();
 						return true
 					}

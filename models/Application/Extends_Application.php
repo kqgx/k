@@ -96,8 +96,8 @@ class Extends_Application extends D_Common {
         $id = $this->models('application')->add(APP_DIR);
 
         // 插入初始化数据
-        if (is_file(FCPATH.'app/'.APP_DIR.'/config/install.sql')
-            && $install = file_get_contents(FCPATH.'app/'.APP_DIR.'/config/install.sql')) {
+        if (is_file(WEBPATH.'app/'.APP_DIR.'/config/install.sql')
+            && $install = file_get_contents(WEBPATH.'app/'.APP_DIR.'/config/install.sql')) {
             $_sql = str_replace(
                 array('{dbprefix}', '{appid}', '{appdir}', '{siteid}'),
                 array($this->db->dbprefix, $id, APP_DIR, SITE_ID),
@@ -121,8 +121,8 @@ class Extends_Application extends D_Common {
         }
 
         // 安装菜单
-        if (is_file(FCPATH.'app/'.APP_DIR.'/config/menu.php')) {
-            $menu = require FCPATH.'app/'.APP_DIR.'/config/menu.php';
+        if (is_file(WEBPATH.'app/'.APP_DIR.'/config/menu.php')) {
+            $menu = require WEBPATH.'app/'.APP_DIR.'/config/menu.php';
             $this->models('site/menu')->set('admin')->add_app_menu($menu, APP_DIR, $id);
         }
 
@@ -146,8 +146,8 @@ class Extends_Application extends D_Common {
         $this->models('application')->del($data['id']);
 
         // 插入初始化数据
-        if (is_file(FCPATH.'app/'.APP_DIR.'/config/uninstall.sql')
-            && $install = file_get_contents(FCPATH.'app/'.APP_DIR.'/config/uninstall.sql')) {
+        if (is_file(WEBPATH.'app/'.APP_DIR.'/config/uninstall.sql')
+            && $install = file_get_contents(WEBPATH.'app/'.APP_DIR.'/config/uninstall.sql')) {
             $_sql = str_replace(
                 array('{dbprefix}', '{appid}', '{appdir}', '{siteid}'),
                 array($this->db->dbprefix, $data['id'], APP_DIR, SITE_ID),

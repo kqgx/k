@@ -19,21 +19,21 @@ class Application extends M_Controller {
     public function index() {
 	
 		$store = $data = array();
-		$local = dr_dir_map(FCPATH.'app/', 1); // 搜索本地应用
+		$local = dr_dir_map(WEBPATH.'app/', 1); // 搜索本地应用
 		$application = $this->models('application')->get_data(); // 库中已安装应用
 		
 		if ($local) {
 			foreach ($local as $dir) {
-				if (is_file(FCPATH.'app/'.$dir.'/config/app.php')) {
+				if (is_file(WEBPATH.'app/'.$dir.'/config/app.php')) {
 					if (isset($application[$dir])) {
-						$config = $data[1][$dir] = array_merge($application[$dir], require FCPATH.'app/'.$dir.'/config/app.php');
+						$config = $data[1][$dir] = array_merge($application[$dir], require WEBPATH.'app/'.$dir.'/config/app.php');
 						$config['key'] && (
 							isset($store[$config['key']])
 								? (version_compare($config['version'], $store[$config['key']], '<') && $store[$config['key']] = $config['version'])
 								: $store[$config['key']] = $config['version']
 						);
 					} else {
-						$data[0][$dir] = require FCPATH.'app/'.$dir.'/config/app.php';
+						$data[0][$dir] = require WEBPATH.'app/'.$dir.'/config/app.php';
 					}
 				}
 			}
@@ -75,11 +75,11 @@ class Application extends M_Controller {
 		$dir = $this->input->get('dir');
 
         $this->load->helper('file');
-		delete_files(FCPATH.'app/'.$dir.'/', TRUE);
+		delete_files(WEBPATH.'app/'.$dir.'/', TRUE);
 
-		is_dir(FCPATH.'app/'.$dir.'/') && @rmdir(FCPATH.'app/'.$dir.'/');
+		is_dir(WEBPATH.'app/'.$dir.'/') && @rmdir(WEBPATH.'app/'.$dir.'/');
 
-		is_dir(FCPATH.'app/'.$dir.'/') && $this->admin_msg(L('无文件删除权限，建议通过FTP等工具删除此目录'));
+		is_dir(WEBPATH.'app/'.$dir.'/') && $this->admin_msg(L('无文件删除权限，建议通过FTP等工具删除此目录'));
 
         // 删除菜单
         $this->db->where('mark', 'app-'.$dir)->delete('admin_menu');

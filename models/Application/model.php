@@ -124,13 +124,13 @@ class Application_model extends CI_Model {
 
         // 搜索本地应用
 		$this->load->helper('system');
-        $local = dr_dir_map(FCPATH.'app/', 1);
+        $local = dr_dir_map(WEBPATH.'app/', 1);
         if ($local) {
             $role = $this->db->where('id>1')->get('admin_role')->result_array();
             $role_cache = 0;
             foreach ($local as $dir) {
                 $app = $this->db->where('dirname', $dir)->where('disabled', 0)->get('application')->row_array();
-                if (is_file(FCPATH.'app/'.$dir.'/config/app.php') && $app) {
+                if (is_file(WEBPATH.'app/'.$dir.'/config/app.php') && $app) {
                     // 保存缓存
                     $cache[] = $dir;
                     $menu = $this->db->where('mark', 'app-'.$dir)->get('admin_menu')->row_array();
@@ -163,8 +163,8 @@ class Application_model extends CI_Model {
                     if ($role_cache) {
                         $this->models('admin/auth')->role_cache();
                     }
-                    if (is_file(FCPATH.'app/'.$dir.'/config/menu.php')) {
-                        $menu = require FCPATH.'app/'.$dir.'/config/menu.php';
+                    if (is_file(WEBPATH.'app/'.$dir.'/config/menu.php')) {
+                        $menu = require WEBPATH.'app/'.$dir.'/config/menu.php';
                         $this->models('site/menu')->set('admin')->add_app_menu($menu, $dir, $app['id']);
                     }
                 } else {

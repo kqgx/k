@@ -40,6 +40,6 @@ class Home extends M_Controller {
 	
 	public function test()
 	{
-		$this->hooks->call_hook('a', [1,2,3,4,5]);
+		
 	}
 }
