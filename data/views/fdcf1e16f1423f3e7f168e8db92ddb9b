@@ -1,0 +1,78 @@
+<?php if ($fn_include = $this->_include("nheader.html")) include($fn_include); ?>
+<div class="page-bar">
+	<ul class="page-breadcrumb mylink">
+		<?php echo $menu['link']; ?>
+
+	</ul>
+	<ul class="page-breadcrumb myname">
+		<?php echo $menu['name']; ?>
+	</ul>
+	<div class="page-toolbar">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-hover="dropdown"> <?php echo L('操作菜单'); ?>
+				<i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				<?php if (is_array($menu['quick'])) { $count=count($menu['quick']);foreach ($menu['quick'] as $t) { ?>
+				<li>
+					<a href="<?php echo $t['url']; ?>"><?php echo $t['icon'];  echo $t['name']; ?></a>
+				</li>
+				<?php } } ?>
+				<li class="divider"> </li>
+				<li>
+					<a href="javascript:window.location.reload();">
+						<i class="icon-refresh"></i> <?php echo L('刷新页面'); ?></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<h3 class="page-title">
+	<small><?php echo L('会员等级通过经验值自动升级，可以通过不同的等级来划分会员的使用权限'); ?></small>
+</h3>
+<form action="" method="post" name="myform" id="myform">
+	<input name="action" id="action" type="hidden" value="" />
+	<div class="portlet mylistbody">
+		<div class="portlet-body">
+			<div class="table-scrollable">
+
+				<table class="mytable table table-striped table-bordered table-hover table-checkable dataTable">
+
+		<thead>
+		<tr>
+			<th width="20"></th>
+			<th width="80">Id</th>
+			<th><?php echo L('名称'); ?></th>
+			<th><?php echo L('图标'); ?></th>
+			<th width="120"><?php echo L(SITE_EXPERIENCE.'要求'); ?></th>
+			<th class="dr_option"><?php echo L('操作'); ?></th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php if (is_array($list)) { $count=count($list);foreach ($list as $t) { ?>
+		<tr id="dr_row_<?php echo $t['id']; ?>">
+			<td><input name="ids[]" type="checkbox" class="dr_select toggle md-check" value="<?php echo $t['id']; ?>" /></td>
+			<td><?php echo $t['id']; ?></td>
+			<td><?php echo $t['name']; ?></td>
+			<td><?php echo dr_show_stars($t['stars']); ?></td>
+			<td><?php echo $t['experience']; ?></td>
+			<td class="dr_option">
+			<?php if ($this->ci->is_auth('admin/member/level/edit')) { ?><a class="aedit" href="<?php echo dr_url('admin/member/level/edit',array('gid'=>$groupid, 'id'=>$t['id'])); ?>"> <i class="fa fa-edit"></i> <?php echo L('修改'); ?></a><?php }  if ($this->ci->is_auth('admin/member/level/del')) { ?><a class="adel" href="javascript:;" onClick="return dr_dialog_del('<?php echo L('您确定要这样操作吗？'); ?>','<?php echo dr_url('admin/member/level/del',array('gid'=>$groupid, 'id'=>$t['id'])); ?>');"> <i class="fa fa-trash"></i> <?php echo L('删除'); ?></a><?php } ?>
+			</td>
+		</tr>
+		<?php } } ?>
+		<tr class="mtable_bottom">
+			<th width="20" ><input class="toggle md-check" name="dr_select" id="dr_select" type="checkbox" onClick="dr_selected()" /></th>
+			<td colspan="99" >
+			<?php if ($this->ci->is_auth('admin/member/level/del')) { ?><button type="button" class="btn red btn-sm " value="<?php echo L('删除'); ?>" name="option" onClick="$('#action').val('del');dr_confirm_set_all('<?php echo L('您确定要这样操作吗？'); ?>')"><i class="fa fa-trash"></i> <?php echo L('删除'); ?></button>
+			<?php } ?>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+		</div>
+	</div>
+</div>
+
+</form>
+<?php if ($fn_include = $this->_include("nfooter.html")) include($fn_include); ?>
