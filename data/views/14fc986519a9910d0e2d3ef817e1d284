@@ -1,0 +1,133 @@
+<?php if ($fn_include = $this->_include("nheader.html")) include($fn_include); ?>
+
+<script>
+    function gogo(v) {
+        window.location.href = '<?php echo dr_url(APP_DIR.'/excel/import'); ?>&table='+v;
+    }
+</script>
+<form class="form-horizontal" action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
+    <div class="page-bar">
+        <ul class="page-breadcrumb mylink">
+            <?php echo $menu2['link']; ?>
+        </ul>
+        <ul class="page-breadcrumb myname">
+            <?php echo $menu2['name']; ?>
+        </ul>
+        <div class="page-toolbar">
+            <div class="btn-group pull-right">
+                <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-hover="dropdown"> <?php echo L('操作菜单'); ?>
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <?php if (is_array($menu2['quick'])) { $count=count($menu2['quick']);foreach ($menu2['quick'] as $t) { ?>
+                    <li>
+                        <a href="<?php echo $t['url']; ?>"><?php echo $t['icon'];  echo $t['name']; ?></a>
+                    </li>
+                    <?php } } ?>
+                    <li class="divider"> </li>
+                    <li>
+                        <a href="javascript:window.location.reload();">
+                            <i class="icon-refresh"></i> <?php echo L('刷新页面'); ?></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <h3 class="page-title">
+        <small></small>
+    </h3>
+    <div class="portlet light bordered ">
+
+        <div class="portlet-title">
+            <div class="caption">
+                <span class="caption-subject font-green sbold uppercase"><?php echo L('选择导入的表'); ?></span>
+            </div>
+        </div>
+        <div class="portlet-body">
+
+            <div class="row">
+                <div class="portlet-body form">
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">选择表: </label>
+                        <div class="col-md-9">
+                            <label>
+                                <select name="table" onchange="gogo(this.value)" class="form-control">
+                                    <option value=""> -- </option>
+                                    <?php if (is_array($tableinfo)) { $count=count($tableinfo);foreach ($tableinfo as $t) { ?>
+                                    <option <?php if ($table==$t['name']) { ?> selected<?php } ?> value="<?php echo $t['name']; ?>"><?php echo $t['name']; ?> (<?php echo $t['note'] ? $t['note'] : $t['name'] ?>)</option>
+                                    <?php } } ?>
+                                    </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">上传excel文件: </label>
+                        <div class="col-md-9">
+                            <label>
+                                <input type="file" name="file" id="file" />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"><?php echo L('导入工作表的序列号'); ?>：</label>
+                        <div class="col-md-9">
+                            <label><input class="form-control" type="text" value="1" name="data[id]" placeholder="默认1" ></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"><?php echo L('数据从第几行开始导入'); ?>：</label>
+                        <div class="col-md-9">
+                            <label> <input class="form-control" type="text" value="1" name="data[ks]" placeholder="默认1" ></label>
+                        </div>
+                    </div>
+
+                    <div class="table-scrollable v3table">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th width="20" align="right">不能为空</th>
+                                <th width="120"><?php echo L('字段名'); ?></th>
+                                <th width="180"><?php echo L('Excel编号'); ?></th>
+                                <th class="dr_option"><?php echo L('格式化函数'); ?></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php if (is_array($tableinfo[$table]['field'])) { $count=count($tableinfo[$table]['field']);foreach ($tableinfo[$table]['field'] as $i=>$t) { ?>
+                            <tr>
+                                <td align="right"><input name="ids[]" type="checkbox" checked class="dr_select toggle md-check" value="<?php echo $i; ?>" /></td>
+                                <td><?php echo $t['name']; ?></td>
+                                <td>
+                                    <label>
+                                        <select class="form-control" name="data[<?php echo $i; ?>][excel]">
+                                            <option value=""> 不导入 </option>
+                                            <?php if (is_array($abcd)) { $count=count($abcd);foreach ($abcd as $ii) { ?>
+                                            <option value="<?php echo $ii; ?>"> <?php echo $ii; ?> </option>
+                                            <?php } } ?>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td class="dr_option"><input type="text" class="form-control" placeholder="用于格式化值,例如时间\文件\图片格式化等" value="" name="data[<?php echo $i; ?>][func]"></td>
+                            </tr>
+                            <?php } } ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"></label>
+                        <div class="col-md-9">
+                            <span class="help-block"><button type="submit" class="btn green"> <i class="fa fa-save"></i> <?php echo L('下一步'); ?></button></span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+<?php if ($fn_include = $this->_include("nfooter.html")) include($fn_include); ?>

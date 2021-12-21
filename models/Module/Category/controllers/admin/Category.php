@@ -14,8 +14,8 @@ class Category extends M_Controller
         parent::__construct();
         $this->template->assign('menu', $this->get_menu_v3(array(
             L('栏目分类') => array(APP_DIR . '/admin/category/index', 'list-ul'),
-            // L('自定义URL') => array(APP_DIR . '/admin/category/url', 'code-fork'),
-            // L('自定义字段') => array('admin/field/index/rname/category-' . APP_DIR . '/rid/' . SITE_ID, 'plus-square'),
+            L('自定义URL') => array(APP_DIR . '/admin/category/url', 'code-fork'),
+            L('自定义字段') => array('admin/field/index/rname/category-' . APP_DIR . '/rid/' . SITE_ID, 'plus-square'),
             L('添加') => array(APP_DIR . '/admin/category/add', 'plus'),
             L('更新缓存') => array('admin/module/cache/dir/' . APP_DIR, 'refresh'),
         )));
@@ -112,11 +112,11 @@ class Category extends M_Controller
             $url = dr_url_prefix($category[$t['id']]['url'] ? $category[$t['id']]['url'] : '/index.php?s=' . APP_DIR . '&c=category&id=' . $t['id'],
                 $domain);
             $t['child'] = $category[$t['id']]['pcatpost'] ? 0 : $t['child'];
-            // $t['option'] = '<label><a class="ago" href="' . $url . '" target="_blank"> <i class="fa fa-send"></i> ' . L('访问') . '</a></label>';
-            // $this->is_auth(APP_DIR . '/admin/cfield/index') && $t['option'] .= '<label><a class="alist onloading" href=' . $this->duri->uri2url('admin/field/index/rname/' . APP_DIR . '-' . SITE_ID . '/rid/' . $t['id']) . '> <i class="fa fa-plus-square"></i> ' . L('附加字段') . '(' . (int)count($category[$t['id']]['field'] ?? []) . ')</a></label>';
+            $t['option'] = '<label><a class="ago" href="' . $url . '" target="_blank"> <i class="fa fa-send"></i> ' . L('访问') . '</a></label>';
+            $this->is_auth(APP_DIR . '/admin/cfield/index') && $t['option'] .= '<label><a class="alist onloading" href=' . $this->duri->uri2url('admin/field/index/rname/' . APP_DIR . '-' . SITE_ID . '/rid/' . $t['id']) . '> <i class="fa fa-plus-square"></i> ' . L('附加字段') . '(' . (int)count($category[$t['id']]['field'] ?? []) . ')</a></label>';
             $t['option'] .= $this->get_option($t);
-            // $this->is_auth(APP_DIR . '/admin/category/add') && $t['option'] .= '<label><a class="aadd onloading" href=' . dr_url(APP_DIR . '/category/add',
-            //         array('id' => $t['id'])) . '> <i class="fa fa-plus"></i> ' . L('子类') . '</a></label>';
+            $this->is_auth(APP_DIR . '/admin/category/add') && $t['option'] .= '<label><a class="aadd onloading" href=' . dr_url(APP_DIR . '/category/add',
+                    array('id' => $t['id'])) . '> <i class="fa fa-plus"></i> ' . L('子类') . '</a></label>';
             $this->is_auth(APP_DIR . '/admin/category/edit') && $t['option'] .= '<label><a class="aedit onloading" href=' . dr_url(APP_DIR . '/category/edit',
                     array('id' => $t['id'])) . '> <i class="fa fa-edit"></i> ' . L('修改') . '</a></label>';
             !$t['setting']['linkurl'] && !$t['child'] && $this->is_auth(APP_DIR . '/admin/content/add') && $t['option'] .= '<label><a class="aadd onloading" href=' . dr_url(APP_DIR . '/content/add',
@@ -143,39 +143,39 @@ class Category extends M_Controller
     /**
      * 批量自定义URL
      */
-    public function url()
-    {
+    // public function url()
+    // {
 
-        redirect(ADMIN_URL . dr_url('module/install3', array('id' => APP_DIR, 'sid' => SITE_ID)), 'refresh');
-        exit;
-        $category = $this->get_cache('module-' . SITE_ID . '-' . APP_DIR, 'category');
-        if (IS_POST) {
-            $catid = $this->input->post('catid');
-            if ($catid) {
-                foreach ($catid as $id) {
-                    $setting = $category[$id]['setting'];
-                    if ($setting) {
-                        $setting['urlrule'] = (int)$this->input->post('urlrule');
-                        $this->db->where('id', $id)->update($this->models('Module/category')->tablename, array(
-                            'setting' => array2string($setting)
-                        ));
-                    }
-                }
-                $this->clear_cache('module');
-                $this->admin_msg(L('总共批量设置了%s个栏目<br>请更新缓存和更新地址', count($catid)), dr_url(APP_DIR . '/category/index'), 1,
-                    5);
-            } else {
-                $error = L('请选择一个的栏目');
-            }
-        }
-        $this->template->assign(array(
-            'error' => $error,
-            'select' => $this->select_category($category, 0,
-                ' class=\'form-control\' id=\'dr_catid\' name=\'catid[]\' multiple style="min-width:200px;height:250px;"',
-                ''),
-        ));
-        $this->template->display('category_url.html');
-    }
+    //     redirect(ADMIN_URL . dr_url('module/install3', array('id' => APP_DIR, 'sid' => SITE_ID)), 'refresh');
+    //     exit;
+    //     $category = $this->get_cache('module-' . SITE_ID . '-' . APP_DIR, 'category');
+    //     if (IS_POST) {
+    //         $catid = $this->input->post('catid');
+    //         if ($catid) {
+    //             foreach ($catid as $id) {
+    //                 $setting = $category[$id]['setting'];
+    //                 if ($setting) {
+    //                     $setting['urlrule'] = (int)$this->input->post('urlrule');
+    //                     $this->db->where('id', $id)->update($this->models('Module/category')->tablename, array(
+    //                         'setting' => array2string($setting)
+    //                     ));
+    //                 }
+    //             }
+    //             $this->clear_cache('module');
+    //             $this->admin_msg(L('总共批量设置了%s个栏目<br>请更新缓存和更新地址', count($catid)), dr_url(APP_DIR . '/category/index'), 1,
+    //                 5);
+    //         } else {
+    //             $error = L('请选择一个的栏目');
+    //         }
+    //     }
+    //     $this->template->assign(array(
+    //         'error' => $error,
+    //         'select' => $this->select_category($category, 0,
+    //             ' class=\'form-control\' id=\'dr_catid\' name=\'catid[]\' multiple style="min-width:200px;height:250px;"',
+    //             ''),
+    //     ));
+    //     $this->template->display('category_url.html');
+    // }
 
     /**
      * 首页
@@ -221,7 +221,7 @@ class Category extends M_Controller
         $str .= $this->is_auth(APP_DIR . '/admin/category/edit') ? "<td>\$spacer<a class='onloading' href='" . dr_url(APP_DIR . '/category/edit') . "&id=\$id'>\$name</a>  \$parent</td>" : "<td>\$spacer\$name  \$parent</td>";
         $str .= "<td>\$dirname</td>";
         $str .= "<td>\$total</td>";
-        // $str .= "<td>\$html</td>";
+        $str .= "<td>\$html</td>";
         $str .= "<td class='dr_option'>\$option</td>";
         $str .= "</tr>";
         $this->dtree->init($tree);
@@ -288,7 +288,7 @@ class Category extends M_Controller
                 $names = $this->input->post('names', true);
                 $number = $this->models('Module/category')->add_all($names, $data, $field);
                 $this->system_log('批量添加站点【#' . SITE_ID . '】模块【' . APP_DIR . '】栏目【' . $number . '个】'); // 记录日志
-                //$this->clear_cache('module');
+                $this->clear_cache('module');
                 $this->models('module')->cache();
                 $this->admin_msg(L('批量添加%s个，更新缓存生效', $number), dr_url(APP_DIR . '/category/index'), 1);
             } else {
@@ -364,7 +364,7 @@ class Category extends M_Controller
             $data['permission'] = $data['rule'];
             $this->attachment_handle($this->uid, $this->models('Module/category')->tablename . '-' . $id, $this->thumb,
                 $_data);
-            //$this->clear_cache('module');
+            $this->clear_cache('module');
             $this->models('module')->cache();
             $this->system_log('修改站点【#' . SITE_ID . '】模块【' . APP_DIR . '】栏目【#' . $id . '】'); // 记录日志
             $this->admin_msg(L('操作成功，更新缓存生效'), $backurl, 1, 2);
@@ -426,7 +426,7 @@ class Category extends M_Controller
             $this->db->where('id', $catid)->update($this->models('Module/category')->tablename, array(
                 'permission' => array2string($data)
             ));
-            //$this->clear_cache('module');
+            $this->clear_cache('module');
             $this->models('module')->cache();
             $this->system_log('站点【#' . SITE_ID . '】模块【' . APP_DIR . '】栏目【#' . $catid . '】权限设置'); // 记录日志
             exit;

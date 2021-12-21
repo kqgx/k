@@ -9,16 +9,14 @@ class Excel extends M_Controller {
      */
     public function __construct() {
         parent::__construct();
-
         $this->tableinfo = $this->get_cache('table');
         if (!$this->tableinfo) {
             $this->tableinfo = $this->models('system')->cache(); // 表结构缓存
         }
-
         $this->template->assign(array(
             'menu2' => $this->get_menu_v3(array(
-                L('Excel导出') => array(APP_DIR.'/admin/excel/index', 'reply-all'),
-                L('Excel导入') => array(APP_DIR.'/admin/excel/import', 'sign-in'),
+                L('Excel导出') => array(dr_url(APP_DIR.'/excel/index'), 'reply-all'),
+                L('Excel导入') => array(dr_url(APP_DIR.'/excel/import'), 'sign-in'),
             )),
             'tableinfo' => $this->tableinfo,
         ));
@@ -114,8 +112,6 @@ class Excel extends M_Controller {
     }
 
     public function import() {
-
-    
         if (IS_POST) {
             $table = $this->input->post('table');
             if ($_FILES["file"]["error"] > 0) {
@@ -132,7 +128,7 @@ class Excel extends M_Controller {
                     $post = $this->input->post('data');
 
                     /** Include PHPExcel */
-                    require APPPATH.'Classes/Init.php';
+                    require APPPATH.'libraries/Classes/Init.php';
                     //建立reader对象
                     $PHPReader = new PHPExcel_Reader_Excel2007();
                     if(!$PHPReader->canRead($file)){

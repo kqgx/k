@@ -1,0 +1,74 @@
+<?php if ($fn_include = $this->_include("nheader.html")) include($fn_include); ?>
+
+
+<form class="form-horizontal" action="" method="post" id="myform" name="myform">
+    <div class="page-bar">
+        <ul class="page-breadcrumb mylink">
+            <?php echo $menu2['link']; ?>
+        </ul>
+        <ul class="page-breadcrumb myname">
+            <?php echo $menu2['name']; ?>
+        </ul>
+        <div class="page-toolbar">
+            <div class="btn-group pull-right">
+                <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false" data-hover="dropdown"> <?php echo L('操作菜单'); ?>
+                    <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <?php if (is_array($menu2['quick'])) { $count=count($menu2['quick']);foreach ($menu2['quick'] as $t) { ?>
+                    <li>
+                        <a href="<?php echo $t['url']; ?>"><?php echo $t['icon'];  echo $t['name']; ?></a>
+                    </li>
+                    <?php } } ?>
+                    <li class="divider"> </li>
+                    <li>
+                        <a href="javascript:window.location.reload();">
+                            <i class="icon-refresh"></i> <?php echo L('刷新页面'); ?></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <h3 class="page-title">
+        <small></small>
+    </h3>
+    <div class="portlet light bordered ">
+
+        <div class="portlet-title">
+            <div class="caption">
+                <span class="caption-subject font-green sbold uppercase"><?php echo L('选择导出表'); ?></span>
+            </div>
+        </div>
+        <div class="portlet-body">
+
+            <div class="row">
+                <div class="portlet-body form">
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">选择表: </label>
+                        <div class="col-md-9">
+                            <label>
+                                <select name="table" class="form-control">
+                                    <?php if (is_array($tableinfo)) { $count=count($tableinfo);foreach ($tableinfo as $t) { ?>
+                                    <option value="<?php echo $t['name']; ?>"><?php echo $t['name']; ?> (<?php echo $t['note'] ? $t['note'] : $t['name'] ?>)</option>
+                                    <?php } } ?>
+                                    </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"></label>
+                        <div class="col-md-9">
+                            <span class="help-block"><button type="submit" class="btn green"> <i class="fa fa-save"></i> <?php echo L('下一步'); ?></button></span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+<?php if ($fn_include = $this->_include("nfooter.html")) include($fn_include); ?>

@@ -1,5 +1,5 @@
 <?php
-	
+
 require_once MODELS . 'Application/Extends_Application.php';
 
 class M_Controller extends Extends_Application {
